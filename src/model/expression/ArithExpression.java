@@ -10,7 +10,7 @@ public class ArithExpression implements ExpressionInterface{
     ExpressionInterface expression1, expression2;
     int operator;
 
-    public ArithExpression(ExpressionInterface expression1, ExpressionInterface expression2, int operator) {
+    public ArithExpression(int operator, ExpressionInterface expression1, ExpressionInterface expression2) {
         this.expression1 = expression1;
         this.expression2 = expression2;
         this.operator = operator;

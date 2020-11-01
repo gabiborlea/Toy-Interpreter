@@ -7,11 +7,11 @@ import model.value.ValueInterface;
 public class ProgramState {
     StackInterface<StatementInterface> executionStack;
     DictionaryInterface<String, ValueInterface> symbolTable;
-    ListInterface<String> output;
+    ListInterface<ValueInterface> output;
 
     public ProgramState(StackInterface<StatementInterface> executionStack,
                         DictionaryInterface<String,ValueInterface> symbolTable,
-                        ListInterface<String> output,
+                        ListInterface<ValueInterface> output,
                         StatementInterface program) {
         this.executionStack = executionStack;
         this.symbolTable = symbolTable;
@@ -28,7 +28,7 @@ public class ProgramState {
         return symbolTable;
     }
 
-    public ListInterface<String> getOutput() {
+    public ListInterface<ValueInterface> getOutput() {
         return output;
     }
 
@@ -40,7 +40,7 @@ public class ProgramState {
         this.symbolTable = symbolTable;
     }
 
-    public void setOutput(ListInterface<String> output) {
+    public void setOutput(ListInterface<ValueInterface> output) {
         this.output = output;
     }
 

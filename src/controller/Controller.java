@@ -1,10 +1,15 @@
 package controller;
 
 import model.ProgramState;
+import model.adt.Dictionary;
+import model.adt.List;
+import model.adt.Stack;
 import model.adt.StackInterface;
 import model.exceptions.MyException;
 import model.statement.StatementInterface;
+import repository.Repository;
 import repository.RepositoryInterface;
+
 
 public class Controller {
     RepositoryInterface repository;
@@ -15,12 +20,17 @@ public class Controller {
         this.showSteps = showSteps;
     }
 
+    public void addProgram(StatementInterface program){
+        var newProgram = new ProgramState(new Stack<>(), new Dictionary<>(), new List<>(), program);
+        repository.addProgramState(newProgram);
+    }
+
     public ProgramState oneStepExecution(ProgramState state) throws MyException {
-        StackInterface<StatementInterface> stack = state.getExecutionStack();
-        if (stack.isEmpty())
+        StackInterface<StatementInterface> executionStack = state.getExecutionStack();
+        if (executionStack.isEmpty())
             throw new MyException("Program State stack is empty");
 
-        StatementInterface currentStatement = stack.pop();
+        StatementInterface currentStatement = executionStack.pop();
 
         return currentStatement.execute(state);
     }
@@ -28,13 +38,12 @@ public class Controller {
     public String allStepsExecution() throws MyException {
         ProgramState programState = repository.getCurrentProgramState();
         String separator = "------------------------\n";
-        StringBuilder programStatesString = new StringBuilder(programState.toString() + "\n");
+        StringBuilder programStatesString = new StringBuilder(programState.toString());
 
         while (!programState.getExecutionStack().isEmpty()) {
             ProgramState executedProgramState = oneStepExecution(programState);
             programStatesString.append(separator);
-            programStatesString.append(executedProgramState.toString()).append("\n");
-
+            programStatesString.append(executedProgramState.toString());
         }
         return programStatesString.toString();
     }
