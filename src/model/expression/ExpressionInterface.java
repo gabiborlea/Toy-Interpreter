@@ -1,5 +1,9 @@
 package model.expression;
 
-public interface ExpressionInterface {
+import model.adt.DictionaryInterface;
+import model.exceptions.MyException;
+import model.value.ValueInterface;
 
+public interface ExpressionInterface {
+    ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws MyException;
 }
