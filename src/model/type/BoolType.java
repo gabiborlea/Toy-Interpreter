@@ -1,6 +1,6 @@
 package model.type;
 
-public class BoolType {
+public class BoolType implements TypeInterface{
     @Override
     public boolean equals(Object another){
         return another instanceof BoolType;
