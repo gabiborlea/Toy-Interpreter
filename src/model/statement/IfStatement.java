@@ -30,7 +30,7 @@ public class IfStatement implements StatementInterface{
         BoolValue bool = new BoolValue(true);
 
         if (value.getType().equals(new BoolType())){
-            if(value.equals(bool))
+            if(value.toString().equals(bool.toString()))
                 executionStack.push(thenStatement);
             else
                 executionStack.push(elseStatement);
