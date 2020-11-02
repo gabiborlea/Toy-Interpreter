@@ -6,6 +6,7 @@ import model.adt.List;
 import model.adt.Stack;
 import model.adt.StackInterface;
 import model.exceptions.MyException;
+import model.exceptions.StackException;
 import model.statement.StatementInterface;
 import repository.Repository;
 import repository.RepositoryInterface;
@@ -28,7 +29,7 @@ public class Controller {
     public ProgramState oneStepExecution(ProgramState state) throws MyException {
         StackInterface<StatementInterface> executionStack = state.getExecutionStack();
         if (executionStack.isEmpty())
-            throw new MyException("Program State stack is empty");
+            throw new StackException("Program State stack is empty");
 
         StatementInterface currentStatement = executionStack.pop();
 

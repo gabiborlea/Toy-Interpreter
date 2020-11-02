@@ -6,4 +6,8 @@ public class MyException extends Exception{
     public MyException(String message){
         this.message = message;
     }
+    @Override
+    public String getMessage() {
+        return message;
+    }
 }

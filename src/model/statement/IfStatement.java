@@ -4,6 +4,7 @@ import model.ProgramState;
 import model.adt.DictionaryInterface;
 import model.adt.StackInterface;
 import model.exceptions.MyException;
+import model.exceptions.TypeException;
 import model.expression.ExpressionInterface;
 import model.type.BoolType;
 import model.value.BoolValue;
@@ -35,7 +36,7 @@ public class IfStatement implements StatementInterface{
                 executionStack.push(elseStatement);
         }
         else
-            throw new MyException("Expression type is not a boolean");
+            throw new TypeException("Expression type is not a boolean");
 
         return state;
     }

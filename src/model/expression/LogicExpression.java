@@ -2,10 +2,10 @@ package model.expression;
 
 import model.adt.DictionaryInterface;
 import model.exceptions.MyException;
+import model.exceptions.OperatorException;
+import model.exceptions.TypeException;
 import model.type.BoolType;
-import model.type.IntType;
 import model.value.BoolValue;
-import model.value.IntValue;
 import model.value.ValueInterface;
 
 public class LogicExpression implements ExpressionInterface{
@@ -35,15 +35,15 @@ public class LogicExpression implements ExpressionInterface{
                 return switch (operator) {
                     case 1 -> new BoolValue(operand1 && operand2);
                     case 2 -> new BoolValue(operand1 || operand2);
-                    default -> throw new MyException("Wrong operator");
+                    default -> throw new OperatorException("Wrong operator");
                 };
 
             }
             else
-                throw new MyException("Second operand is not a boolean");
+                throw new TypeException("Second operand is not a boolean");
         }
         else
-            throw new MyException("First operand is not a boolean");
+            throw new TypeException("First operand is not a boolean");
     }
 
     @Override

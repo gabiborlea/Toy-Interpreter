@@ -3,6 +3,8 @@ package model.statement;
 import model.ProgramState;
 import model.adt.DictionaryInterface;
 import model.exceptions.MyException;
+import model.exceptions.TypeException;
+import model.exceptions.VariableDefinitionException;
 import model.statement.StatementInterface;
 import model.type.TypeInterface;
 import model.value.BoolValue;
@@ -25,10 +27,10 @@ public class VarDeclarationStatement implements StatementInterface {
         switch (type.toString()) {
             case "bool" -> value = new BoolValue(false);
             case "int" -> value = new IntValue(0);
-            default -> throw new MyException("Wrong type");
+            default -> throw new TypeException("Wrong type");
         }
         if (symbolTable.isDefined(name)) {
-            throw new MyException("Variable already exists");
+            throw new VariableDefinitionException("Variable already exists");
         }
         symbolTable.add(name, value);
         return state;

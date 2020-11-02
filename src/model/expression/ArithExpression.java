@@ -1,7 +1,10 @@
 package model.expression;
 
 import model.adt.DictionaryInterface;
+import model.exceptions.DivisonByZeroException;
 import model.exceptions.MyException;
+import model.exceptions.OperatorException;
+import model.exceptions.TypeException;
 import model.type.IntType;
 import model.value.IntValue;
 import model.value.ValueInterface;
@@ -42,21 +45,21 @@ public class ArithExpression implements ExpressionInterface{
 
                     case 4:{
                         if(number2 == 0)
-                            throw new MyException("Division by zero");
+                            throw new DivisonByZeroException("Division by zero");
 
                         return new IntValue(number1/number2);
                     }
                     default:
-                        throw new MyException("Wrong operator");
+                        throw new OperatorException("Wrong operator");
 
                 }
 
             }
             else
-                throw new MyException("Second operand is not an integer");
+                throw new TypeException("Second operand is not an integer");
         }
         else
-            throw new MyException("First operand is not an integer");
+            throw new TypeException("First operand is not an integer");
 
     }
 
