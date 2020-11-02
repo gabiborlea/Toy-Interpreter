@@ -48,7 +48,7 @@ public class View {
 
                         int input = scanner.nextInt();
                         if (input == 1) {
-                            controller.toogleShowSteps();
+                            controller.toggleShowSteps();
                             controller.allStepsExecution();
                         }
                         if (input == 0)
@@ -69,7 +69,7 @@ public class View {
 
                         int input = scanner.nextInt();
                         if (input == 1) {
-                            controller.toogleShowSteps();
+                            controller.toggleShowSteps();
                             controller.allStepsExecution();
                         }
                         if (input == 0)
@@ -90,7 +90,7 @@ public class View {
 
                         int input = scanner.nextInt();
                         if (input == 1) {
-                            controller.toogleShowSteps();
+                            controller.toggleShowSteps();
                             controller.allStepsExecution();
                         }
                         if (input == 0)

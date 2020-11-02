@@ -7,8 +7,8 @@ import model.adt.Stack;
 import model.adt.StackInterface;
 import model.exceptions.MyException;
 import model.exceptions.StackException;
+import model.exceptions.TypeException;
 import model.statement.StatementInterface;
-import repository.Repository;
 import repository.RepositoryInterface;
 
 import java.util.Scanner;
@@ -47,17 +47,26 @@ public class Controller {
             ProgramState executedProgramState = oneStepExecution(programState);
             programStatesString.append(separator);
             programStatesString.append(executedProgramState.toString());
-            if (showSteps == true)
+            if (showSteps)
             {
                 System.out.print(separator);
                 System.out.println(programState.toString());
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Press 1 to continue, 0 to interrupt: ");
-                int option = scanner.nextInt();
+                int option;
+                try {
+                    option = scanner.nextInt();
+                } catch(Exception exception)
+                {
+                    throw new TypeException("Invalid input");
+                }
                 if (option == 1)
                     continue;
                 if (option == 0)
                     break;
+
+                else
+                    throw new TypeException("Invalid input");
 
             }
         }
@@ -68,7 +77,7 @@ public class Controller {
         return repository.getCurrentProgramState();
     }
 
-    public void toogleShowSteps() {
+    public void toggleShowSteps() {
         this.showSteps = !showSteps;
     }
 }
