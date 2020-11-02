@@ -1,7 +1,13 @@
 package model.exceptions;
 
-public class DivisonByZeroException extends MyException{
-    public DivisonByZeroException(String message) {
-        super(message);
+public class DivisonByZeroException extends RuntimeException {
+    String message;
+
+    public DivisonByZeroException(String message){
+        this.message = message;
+    }
+    @Override
+    public String getMessage() {
+        return message;
     }
 }

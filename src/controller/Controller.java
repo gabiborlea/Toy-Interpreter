@@ -11,6 +11,8 @@ import model.statement.StatementInterface;
 import repository.Repository;
 import repository.RepositoryInterface;
 
+import java.util.Scanner;
+
 
 public class Controller {
     RepositoryInterface repository;
@@ -45,11 +47,28 @@ public class Controller {
             ProgramState executedProgramState = oneStepExecution(programState);
             programStatesString.append(separator);
             programStatesString.append(executedProgramState.toString());
+            if (showSteps == true)
+            {
+                System.out.print(separator);
+                System.out.println(programState.toString());
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Press 1 to continue, 0 to interrupt: ");
+                int option = scanner.nextInt();
+                if (option == 1)
+                    continue;
+                if (option == 0)
+                    break;
+
+            }
         }
         return programStatesString.toString();
     }
 
     public ProgramState getCurrentProgramState() {
         return repository.getCurrentProgramState();
+    }
+
+    public void toogleShowSteps() {
+        this.showSteps = !showSteps;
     }
 }

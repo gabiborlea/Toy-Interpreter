@@ -23,4 +23,5 @@ public class BoolValue implements ValueInterface{
     public String toString() {
         return String.valueOf(value);
     }
+
 }

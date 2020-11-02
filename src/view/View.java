@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class View {
     HashMap<Integer, StatementInterface> programs;
+    Controller controller;
 
     public View(HashMap<Integer, StatementInterface> programs) {
         this.programs = programs;
@@ -23,7 +24,7 @@ public class View {
         System.out.println("1.Execute Program1");
         System.out.println("2.Execute Program2");
         System.out.println("3.Execute Program3");
-        System.out.println("4.Exit");
+        System.out.println("5.Exit");
     }
 
     public void start() {
@@ -36,10 +37,22 @@ public class View {
             switch (option) {
                 case 1 -> {
                     try {
+
+
                         Repository repository = new Repository();
-                        Controller controller = new Controller(repository, true);
+                        Controller controller = new Controller(repository, false);
                         controller.addProgram(programs.get(1));
-                        System.out.println(controller.allStepsExecution());
+                        System.out.print("1 to Start the one step execution\n" +
+                                "0 to Start the all step execution\n"+
+                                ">>>");
+
+                        int input = scanner.nextInt();
+                        if (input == 1) {
+                            controller.toogleShowSteps();
+                            controller.allStepsExecution();
+                        }
+                        if (input == 0)
+                            System.out.println(controller.allStepsExecution());
                     } catch (MyException exception) {
                         System.out.println(exception.getMessage());
                     }
@@ -48,9 +61,19 @@ public class View {
                 case 2 -> {
                     try {
                         Repository repository = new Repository();
-                        Controller controller = new Controller(repository, true);
+                        controller = new Controller(repository, false);
                         controller.addProgram(programs.get(2));
-                        System.out.println(controller.allStepsExecution());
+                        System.out.print("1 to Start the one step execution\n" +
+                                "0 to Start the all step execution\n"+
+                                ">>>");
+
+                        int input = scanner.nextInt();
+                        if (input == 1) {
+                            controller.toogleShowSteps();
+                            controller.allStepsExecution();
+                        }
+                        if (input == 0)
+                            System.out.println(controller.allStepsExecution());
                     } catch (Exception exception) {
                         System.out.println(exception.getMessage());
                     }
@@ -59,15 +82,25 @@ public class View {
                 case 3 -> {
                     try {
                         Repository repository = new Repository();
-                        Controller controller = new Controller(repository, true);
+                        controller = new Controller(repository, false);
                         controller.addProgram(programs.get(3));
-                        System.out.println(controller.allStepsExecution());
+                        System.out.print("1 to Start the one step execution\n" +
+                                "0 to Start the all step execution\n"+
+                                ">>>");
+
+                        int input = scanner.nextInt();
+                        if (input == 1) {
+                            controller.toogleShowSteps();
+                            controller.allStepsExecution();
+                        }
+                        if (input == 0)
+                            System.out.println(controller.allStepsExecution());
                     } catch (Exception exception) {
                         System.out.println(exception.getMessage());
                     }
                 }
 
-                case 4 -> ok = 0;
+                case 5 -> ok = 0;
                 default -> System.out.println("Wrong option");
             }
         }
