@@ -1,15 +1,15 @@
 package repository;
 
 import model.ProgramState;
-
-import java.util.ArrayList;
+import model.adt.List;
+import model.adt.ListInterface;
 
 public class Repository implements RepositoryInterface {
-    ArrayList<ProgramState> programStates;
+    ListInterface<ProgramState> programStates;
     int currentProgramState;
 
     public Repository(){
-        programStates = new ArrayList<>();
+        programStates = new List<>();
         currentProgramState = 0;
     }
 
