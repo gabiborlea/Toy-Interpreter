@@ -1,5 +1,7 @@
 package model.type;
 
-public interface TypeInterface {
+import model.value.ValueInterface;
 
+public interface TypeInterface {
+    ValueInterface defaultValue();
 }

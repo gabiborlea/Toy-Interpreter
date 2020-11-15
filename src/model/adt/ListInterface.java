@@ -1,5 +1,7 @@
 package model.adt;
 
+import java.util.ArrayList;
+
 public interface ListInterface<TElement> {
     void add(TElement element);
     TElement get(int index);
@@ -7,4 +9,5 @@ public interface ListInterface<TElement> {
     void remove(int index);
     void clear();
     boolean isEmpty();
+    ArrayList<String> getElementsStrings();
 }

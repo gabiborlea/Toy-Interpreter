@@ -20,8 +20,14 @@ public class BoolValue implements ValueInterface{
     }
 
     @Override
+    public boolean equals(Object another){
+        return another instanceof BoolValue && ((BoolValue) another).value == (this.value);
+    }
+
+    @Override
     public String toString() {
         return String.valueOf(value);
     }
+
 
 }

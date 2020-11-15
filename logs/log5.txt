@@ -1,0 +1,174 @@
+Execution Stack:
+int a
+(a=8;(int b;(b=10;(int min;((IF(a<b) THEN(min=a)ELSE(min=b));print(min))))))
+
+System Table:
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+(a=8;(int b;(b=10;(int min;((IF(a<b) THEN(min=a)ELSE(min=b));print(min))))))
+
+System Table:
+a-->0
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+a=8
+(int b;(b=10;(int min;((IF(a<b) THEN(min=a)ELSE(min=b));print(min)))))
+
+System Table:
+a-->0
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+(int b;(b=10;(int min;((IF(a<b) THEN(min=a)ELSE(min=b));print(min)))))
+
+System Table:
+a-->8
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+int b
+(b=10;(int min;((IF(a<b) THEN(min=a)ELSE(min=b));print(min))))
+
+System Table:
+a-->8
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+(b=10;(int min;((IF(a<b) THEN(min=a)ELSE(min=b));print(min))))
+
+System Table:
+a-->8
+b-->0
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+b=10
+(int min;((IF(a<b) THEN(min=a)ELSE(min=b));print(min)))
+
+System Table:
+a-->8
+b-->0
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+(int min;((IF(a<b) THEN(min=a)ELSE(min=b));print(min)))
+
+System Table:
+a-->8
+b-->10
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+int min
+((IF(a<b) THEN(min=a)ELSE(min=b));print(min))
+
+System Table:
+a-->8
+b-->10
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+((IF(a<b) THEN(min=a)ELSE(min=b));print(min))
+
+System Table:
+a-->8
+b-->10
+min-->0
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+(IF(a<b) THEN(min=a)ELSE(min=b))
+print(min)
+
+System Table:
+a-->8
+b-->10
+min-->0
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+min=a
+print(min)
+
+System Table:
+a-->8
+b-->10
+min-->0
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+print(min)
+
+System Table:
+a-->8
+b-->10
+min-->8
+
+Output:
+
+File Table:
+--------------------------
+
+Execution Stack:
+
+System Table:
+a-->8
+b-->10
+min-->8
+
+Output:
+8
+
+File Table:
+--------------------------
+

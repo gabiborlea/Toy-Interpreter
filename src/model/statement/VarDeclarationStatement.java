@@ -5,10 +5,7 @@ import model.adt.DictionaryInterface;
 import model.exceptions.MyException;
 import model.exceptions.TypeException;
 import model.exceptions.VariableDefinitionException;
-import model.statement.StatementInterface;
 import model.type.TypeInterface;
-import model.value.BoolValue;
-import model.value.IntValue;
 import model.value.ValueInterface;
 
 public class VarDeclarationStatement implements StatementInterface {
@@ -25,8 +22,7 @@ public class VarDeclarationStatement implements StatementInterface {
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
         ValueInterface value;
         switch (type.toString()) {
-            case "bool" -> value = new BoolValue(false);
-            case "int" -> value = new IntValue(0);
+            case "bool", "int", "string" -> value = type.defaultValue();
             default -> throw new TypeException("Wrong type");
         }
         if (symbolTable.isDefined(name)) {

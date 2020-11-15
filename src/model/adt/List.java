@@ -40,6 +40,15 @@ public class List<TElement> implements ListInterface<TElement> {
     }
 
     @Override
+    public ArrayList<String> getElementsStrings() {
+        ArrayList<String> elements = new ArrayList<>();
+        for (var element: this.list) {
+            elements.add(element.toString());
+        }
+        return elements;
+    }
+
+    @Override
     public String toString() {
         return list.toString();
     }

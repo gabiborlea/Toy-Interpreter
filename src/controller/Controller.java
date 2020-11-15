@@ -7,11 +7,8 @@ import model.adt.Stack;
 import model.adt.StackInterface;
 import model.exceptions.MyException;
 import model.exceptions.StackException;
-import model.exceptions.TypeException;
 import model.statement.StatementInterface;
 import repository.RepositoryInterface;
-
-import java.util.Scanner;
 
 
 public class Controller {
@@ -24,7 +21,7 @@ public class Controller {
     }
 
     public void addProgram(StatementInterface program){
-        var newProgram = new ProgramState(new Stack<>(), new Dictionary<>(), new List<>(), program);
+        var newProgram = new ProgramState(new Stack<>(), new Dictionary<>(), new List<>(), new Dictionary<>(), program);
         repository.addProgramState(newProgram);
     }
 
@@ -38,39 +35,14 @@ public class Controller {
         return currentStatement.execute(state);
     }
 
-    public String allStepsExecution() throws MyException {
+    public void allStepsExecution() throws MyException {
         ProgramState programState = repository.getCurrentProgramState();
-        String separator = "------------------------\n";
-        StringBuilder programStatesString = new StringBuilder(programState.toString());
 
         while (!programState.getExecutionStack().isEmpty()) {
-            ProgramState executedProgramState = oneStepExecution(programState);
-            programStatesString.append(separator);
-            programStatesString.append(executedProgramState.toString());
-            if (showSteps)
-            {
-                System.out.print(separator);
-                System.out.println(programState.toString());
-                Scanner scanner = new Scanner(System.in);
-                System.out.print("Press 1 to continue, 0 to interrupt: ");
-                int option;
-                try {
-                    option = scanner.nextInt();
-                } catch(Exception exception)
-                {
-                    throw new TypeException("Invalid input");
-                }
-                if (option == 1)
-                    continue;
-                if (option == 0)
-                    break;
+            oneStepExecution(programState);
+            repository.logProgramStateExecution();
 
-                else
-                    throw new TypeException("Invalid input");
-
-            }
         }
-        return programStatesString.toString();
     }
 
     public ProgramState getCurrentProgramState() {

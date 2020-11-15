@@ -1,5 +1,6 @@
 package model.adt;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Stack<TElement> implements StackInterface<TElement> {
@@ -22,6 +23,15 @@ public class Stack<TElement> implements StackInterface<TElement> {
     @Override
     public boolean isEmpty() {
         return stack.isEmpty();
+    }
+
+    @Override
+    public ArrayList<String> getElementsStrings() {
+        ArrayList<String> elements = new ArrayList<>();
+        for (var element: this.stack) {
+            elements.add(element.toString());
+        }
+        return elements;
     }
 
     @Override

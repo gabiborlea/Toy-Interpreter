@@ -20,6 +20,11 @@ public class IntValue implements ValueInterface{
     }
 
     @Override
+    public boolean equals(Object another){
+        return another instanceof IntValue && ((IntValue) another).value == (this.value);
+    }
+
+    @Override
     public String toString() {
         return String.valueOf(value);
     }

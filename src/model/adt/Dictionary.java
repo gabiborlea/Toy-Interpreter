@@ -1,5 +1,6 @@
 package model.adt;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Dictionary<TKey, TElement> implements DictionaryInterface<TKey, TElement> {
@@ -37,6 +38,18 @@ public class Dictionary<TKey, TElement> implements DictionaryInterface<TKey, TEl
     @Override
     public void clear() {
         dictionary.clear();
+    }
+
+    @Override
+    public ArrayList<ArrayList<String>> getElementsStrings() {
+        ArrayList<ArrayList<String>> elements = new ArrayList<>();
+        for (TKey key : this.dictionary.keySet()){
+            ArrayList<String> list = new ArrayList<>();
+            list.add(key.toString());
+            list.add(dictionary.get(key).toString());
+            elements.add(list);
+        }
+        return elements;
     }
 
     @Override
