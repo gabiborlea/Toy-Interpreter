@@ -26,7 +26,7 @@ public class IfStatement implements StatementInterface{
         StackInterface<StatementInterface> executionStack = state.getExecutionStack();
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
 
-        ValueInterface value = expression.evaluate(symbolTable);
+        ValueInterface value = expression.evaluate(symbolTable, state.getMemoryHeap());
         BoolValue bool = new BoolValue(true);
 
         if (value.getType().equals(new BoolType())){

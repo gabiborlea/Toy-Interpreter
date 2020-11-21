@@ -17,7 +17,6 @@ public class RunExample extends Command {
             controller.allStepsExecution();
         } catch (MyException exception) {
             System.out.println(exception.getMessage());
-            exception.printStackTrace();
         }
 
     }

@@ -2,6 +2,8 @@ package model.adt;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Dictionary<TKey, TElement> implements DictionaryInterface<TKey, TElement> {
     HashMap<TKey, TElement> dictionary;
@@ -38,6 +40,17 @@ public class Dictionary<TKey, TElement> implements DictionaryInterface<TKey, TEl
     @Override
     public void clear() {
         dictionary.clear();
+    }
+
+    @Override
+    public void setContent(Map<TKey, TElement> newContent) {
+        dictionary = new HashMap<>();
+        dictionary.putAll(newContent);
+    }
+
+    @Override
+    public Map<TKey, TElement> getContent() {
+        return dictionary.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
     }
 
     @Override

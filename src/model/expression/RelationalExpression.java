@@ -1,6 +1,7 @@
 package model.expression;
 
 import model.adt.DictionaryInterface;
+import model.adt.HeapInterface;
 import model.exceptions.DivisonByZeroException;
 import model.exceptions.MyException;
 import model.exceptions.OperatorException;
@@ -22,11 +23,11 @@ public class RelationalExpression implements ExpressionInterface{
     }
 
     @Override
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws MyException {
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<ValueInterface> heap) throws MyException {
         ValueInterface value1, value2;
-        value1 = expression1.evaluate(table);
+        value1 = expression1.evaluate(table, heap);
         if (value1.getType().equals(new IntType())){
-            value2 = expression2.evaluate(table);
+            value2 = expression2.evaluate(table, heap);
 
             if(value2.getType().equals(new IntType())){
                 IntValue integer1 = (IntValue) value1;

@@ -1,9 +1,10 @@
 package model.expression;
 
 import model.adt.DictionaryInterface;
+import model.adt.HeapInterface;
 import model.exceptions.MyException;
 import model.value.ValueInterface;
 
 public interface ExpressionInterface {
-    ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws MyException;
+    ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<ValueInterface> heap) throws MyException;
 }

@@ -38,7 +38,7 @@ public class ReadFileStatement implements StatementInterface{
         if (!variable.getType().equals(new IntType()))
             throw new TypeException("Variable is not of int type");
 
-        ValueInterface value = expression.evaluate(symbolTable);
+        ValueInterface value = expression.evaluate(symbolTable, state.getMemoryHeap());
 
         if (!value.getType().equals(new StringType()))
             throw new TypeException("Expresion is not of string type");

@@ -24,7 +24,7 @@ public class AssignStatement implements StatementInterface{
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
 
         if (symbolTable.isDefined(id)) {
-            ValueInterface value = expression.evaluate(symbolTable);
+            ValueInterface value = expression.evaluate(symbolTable, state.getMemoryHeap());
             TypeInterface type = symbolTable.get(id).getType();
             if (value.getType().equals(type)){
                 symbolTable.update(id, value);

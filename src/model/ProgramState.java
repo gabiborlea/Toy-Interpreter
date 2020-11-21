@@ -12,16 +12,19 @@ public class ProgramState {
     DictionaryInterface<String, ValueInterface> symbolTable;
     ListInterface<ValueInterface> output;
     DictionaryInterface<StringValue, BufferedReader> fileTable;
+    HeapInterface<ValueInterface> memoryHeap;
 
     public ProgramState(StackInterface<StatementInterface> executionStack,
-                        DictionaryInterface<String,ValueInterface> symbolTable,
+                        DictionaryInterface<String, ValueInterface> symbolTable,
                         ListInterface<ValueInterface> output,
-                        DictionaryInterface<StringValue, BufferedReader>  fileTable,
+                        DictionaryInterface<StringValue, BufferedReader> fileTable,
+                        HeapInterface<ValueInterface> memoryHeap,
                         StatementInterface program) {
         this.executionStack = executionStack;
         this.symbolTable = symbolTable;
         this.output = output;
         this.fileTable = fileTable;
+        this.memoryHeap = memoryHeap;
         executionStack.push(program);
     }
 
@@ -38,7 +41,13 @@ public class ProgramState {
         return output;
     }
 
-    public DictionaryInterface<StringValue, BufferedReader> getFileTable() { return fileTable; }
+    public DictionaryInterface<StringValue, BufferedReader> getFileTable() {
+        return fileTable;
+    }
+
+    public HeapInterface<ValueInterface> getMemoryHeap() {
+        return memoryHeap;
+    }
 
     public void setExecutionStack(StackInterface<StatementInterface> executionStack) {
         this.executionStack = executionStack;
@@ -58,23 +67,28 @@ public class ProgramState {
         StringBuilder symbolTable = new StringBuilder();
         StringBuilder output = new StringBuilder();
         StringBuilder fileTable = new StringBuilder();
+        StringBuilder memoryHeap = new StringBuilder();
 
-        for (var element: this.executionStack.getElementsStrings())
+        for (var element : this.executionStack.getElementsStrings())
             executionStack.append(element).append("\n");
 
-        for (var element: this.symbolTable.getElementsStrings())
+        for (var element : this.symbolTable.getElementsStrings())
             symbolTable.append(element.get(0)).append("-->").append(element.get(1)).append("\n");
 
-        for (var element: this.output.getElementsStrings())
+        for (var element : this.output.getElementsStrings())
             output.append(element).append("\n");
 
-        for (var element: this.fileTable.getElementsStrings())
+        for (var element : this.fileTable.getElementsStrings())
             fileTable.append(element.get(0)).append("\n");
 
+        for (var element : this.memoryHeap.getElementsStrings())
+            memoryHeap.append(element.get(0)).append("-->").append(element.get(1)).append("\n");
 
-        return "Execution Stack:\n" + executionStack + "\n"+
-                "System Table:\n" + symbolTable + "\n"+
-                "Output:\n" + output + "\n"+
-                "File Table:\n" + fileTable+ "--------------------------\n\n";
+
+        return "Execution Stack:\n" + executionStack + "\n" +
+                "Symbol Table:\n" + symbolTable + "\n" +
+                "Output:\n" + output + "\n" +
+                "File Table:\n" + fileTable + "\n" +
+                "Memory Heap:\n" + memoryHeap + "--------------------------\n\n";
     }
 }

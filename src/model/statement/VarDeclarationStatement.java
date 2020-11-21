@@ -5,7 +5,7 @@ import model.adt.DictionaryInterface;
 import model.exceptions.MyException;
 import model.exceptions.TypeException;
 import model.exceptions.VariableDefinitionException;
-import model.type.TypeInterface;
+import model.type.*;
 import model.value.ValueInterface;
 
 public class VarDeclarationStatement implements StatementInterface {
@@ -20,15 +20,11 @@ public class VarDeclarationStatement implements StatementInterface {
     @Override
     public ProgramState execute(ProgramState state) throws MyException {
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
-        ValueInterface value;
-        switch (type.toString()) {
-            case "bool", "int", "string" -> value = type.defaultValue();
-            default -> throw new TypeException("Wrong type");
-        }
+
         if (symbolTable.isDefined(name)) {
             throw new VariableDefinitionException("Variable already exists");
         }
-        symbolTable.add(name, value);
+        symbolTable.add(name, type.defaultValue());
         return state;
     }
 

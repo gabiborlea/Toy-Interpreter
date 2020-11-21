@@ -1,6 +1,7 @@
 package model.adt;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface DictionaryInterface<TKey, TElement> {
     void add(TKey key, TElement element);
@@ -9,5 +10,7 @@ public interface DictionaryInterface<TKey, TElement> {
     TElement get(TKey key);
     boolean isDefined(TKey key);
     void clear();
+    void setContent(Map<TKey, TElement> newContent);
+    Map<TKey, TElement> getContent();
     ArrayList<ArrayList<String>> getElementsStrings();
 }

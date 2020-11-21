@@ -25,7 +25,7 @@ public class CloseRFileStatement implements StatementInterface{
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
         DictionaryInterface<StringValue, BufferedReader> fileTable = state.getFileTable();
 
-        ValueInterface value = expression.evaluate(symbolTable);
+        ValueInterface value = expression.evaluate(symbolTable, state.getMemoryHeap());
 
         if (!value.getType().equals(new StringType()))
             throw new TypeException("Expresion is not of string type");

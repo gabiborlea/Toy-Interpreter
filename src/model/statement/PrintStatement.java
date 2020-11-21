@@ -18,7 +18,7 @@ public class PrintStatement implements StatementInterface{
     public ProgramState execute(ProgramState state) throws MyException {
         ListInterface<ValueInterface> output = state.getOutput();
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
-        output.add(expression.evaluate(symbolTable));
+        output.add(expression.evaluate(symbolTable, state.getMemoryHeap()));
         return state;
     }
 

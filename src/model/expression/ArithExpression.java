@@ -1,6 +1,7 @@
 package model.expression;
 
 import model.adt.DictionaryInterface;
+import model.adt.HeapInterface;
 import model.exceptions.DivisonByZeroException;
 import model.exceptions.MyException;
 import model.exceptions.OperatorException;
@@ -20,12 +21,12 @@ public class ArithExpression implements ExpressionInterface{
     }
 
     @Override
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws MyException {
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<ValueInterface> heap) throws MyException {
         ValueInterface value1, value2;
-        value1 = expression1.evaluate(table);
+        value1 = expression1.evaluate(table, heap);
 
         if (value1.getType().equals(new IntType())){
-            value2 = expression2.evaluate(table);
+            value2 = expression2.evaluate(table, heap);
 
             if(value2.getType().equals(new IntType())){
                 IntValue integer1 = (IntValue) value1;
@@ -67,7 +68,7 @@ public class ArithExpression implements ExpressionInterface{
     public String toString() {
         return switch (operator) {
             case 1 -> expression1 + "+" + expression2;
-            case 2 -> expression2 + "-" + expression2;
+            case 2 -> expression1 + "-" + expression2;
             case 3 -> expression1 + "*" + expression2;
             case 4 -> expression1 + "/" + expression2;
             default -> expression1 + "wrong operator" + expression2;

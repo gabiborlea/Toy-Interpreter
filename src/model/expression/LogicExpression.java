@@ -1,6 +1,7 @@
 package model.expression;
 
 import model.adt.DictionaryInterface;
+import model.adt.HeapInterface;
 import model.exceptions.MyException;
 import model.exceptions.OperatorException;
 import model.exceptions.TypeException;
@@ -19,12 +20,12 @@ public class LogicExpression implements ExpressionInterface{
     }
 
     @Override
-    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table) throws MyException {
+    public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<ValueInterface> heap) throws MyException {
         ValueInterface value1, value2;
-        value1 = expression1.evaluate(table);
+        value1 = expression1.evaluate(table, heap);
 
         if (value1.getType().equals(new BoolType())){
-            value2 = expression2.evaluate(table);
+            value2 = expression2.evaluate(table, heap);
 
             if(value2.getType().equals(new BoolType())){
                 BoolValue boolean1 = (BoolValue) value1;
