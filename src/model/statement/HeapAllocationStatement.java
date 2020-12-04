@@ -40,7 +40,7 @@ public class HeapAllocationStatement implements StatementInterface {
         int address = memoryHeap.add(value);
         symbolTable.update(variableName, new ReferenceValue(address, ((ReferenceValue) variable).getLocationType()));
 
-        return state;
+        return null;
 
     }
 

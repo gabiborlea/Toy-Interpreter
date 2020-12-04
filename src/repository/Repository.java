@@ -5,7 +5,6 @@ import model.adt.List;
 import model.adt.ListInterface;
 import model.exceptions.InOutException;
 import model.exceptions.MyException;
-import model.value.StringValue;
 
 import java.io.*;
 
@@ -33,18 +32,23 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
-    public ProgramState getCurrentProgramState() {
-        return programStates.get(currentProgramState - 1);
-    }
-
-    @Override
-    public void logProgramStateExecution() throws MyException{
+    public void logProgramStateExecution(ProgramState programState) throws MyException{
         try {
             var logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
-            logFile.append(getCurrentProgramState().toString());
+            logFile.append(programState.toString());
             logFile.close();
         } catch (IOException exception) {
             throw new InOutException(exception.getMessage());
         }
+    }
+
+    @Override
+    public java.util.List<ProgramState> getProgramStatesList() {
+        return programStates.getContent();
+    }
+
+    @Override
+    public void setProgramStatesList(java.util.List<ProgramState> programStates) {
+        this.programStates.setContent(programStates);
     }
 }

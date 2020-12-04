@@ -19,7 +19,7 @@ public class CompStatement implements StatementInterface{
         executionStack.push(second);
         executionStack.push(first);
 
-        return state;
+        return null;
     }
 
     @Override

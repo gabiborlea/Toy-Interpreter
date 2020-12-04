@@ -40,6 +40,16 @@ public class List<TElement> implements ListInterface<TElement> {
     }
 
     @Override
+    public java.util.List<TElement> getContent() {
+        return list;
+    }
+
+    @Override
+    public void setContent(java.util.List<TElement> newContent) {
+        list = new ArrayList<TElement>(newContent);
+    }
+
+    @Override
     public ArrayList<String> getElementsStrings() {
         ArrayList<String> elements = new ArrayList<>();
         for (var element: this.list) {

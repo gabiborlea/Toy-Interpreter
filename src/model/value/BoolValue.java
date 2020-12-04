@@ -15,6 +15,11 @@ public class BoolValue implements ValueInterface{
         return new BoolType();
     }
 
+    @Override
+    public ValueInterface copy() {
+        return new BoolValue(value);
+    }
+
     public boolean getValue() {
         return value;
     }

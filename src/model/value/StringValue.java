@@ -13,6 +13,11 @@ public class StringValue implements ValueInterface{
         return new StringType();
     }
 
+    @Override
+    public ValueInterface copy() {
+        return new StringValue(value);
+    }
+
     public String getValue() {
         return value;
     }

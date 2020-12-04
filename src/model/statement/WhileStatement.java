@@ -29,7 +29,7 @@ public class WhileStatement implements StatementInterface{
             state.getExecutionStack().push(blockStatement);
         }
 
-        return state;
+        return null;
     }
 
     @Override

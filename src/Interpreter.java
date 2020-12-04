@@ -135,7 +135,7 @@ public class Interpreter {
                                         new HeapAllocationStatement("a", new VarExpression("v")),
                                         new CompStatement(
                                                 new PrintStatement(new ReadHeapExpression(new VarExpression("v"))),
-                                                new PrintStatement(new ArithExpression(1,new ReadHeapExpression(new VarExpression("v")), new ValueExpression(new IntValue(5))))
+                                                new PrintStatement(new ArithExpression(1, new ReadHeapExpression(new VarExpression("v")), new ValueExpression(new IntValue(5))))
                                         )
                                 )
                         )
@@ -150,7 +150,7 @@ public class Interpreter {
                                 new PrintStatement(new ReadHeapExpression(new VarExpression("v"))),
                                 new CompStatement(
                                         new WriteHeapStatement("v", new ValueExpression(new IntValue(30))),
-                                        new PrintStatement(new ArithExpression(1,new ReadHeapExpression(new VarExpression("v")), new ValueExpression(new IntValue(5))))
+                                        new PrintStatement(new ArithExpression(1, new ReadHeapExpression(new VarExpression("v")), new ValueExpression(new IntValue(5))))
 
                                 )
                         )
@@ -167,7 +167,7 @@ public class Interpreter {
                                         new HeapAllocationStatement("a", new VarExpression("v")),
                                         new CompStatement(
                                                 new HeapAllocationStatement("v", new ValueExpression(new IntValue(30))),
-                                                new PrintStatement(new ReadHeapExpression (new ReadHeapExpression(new VarExpression("a"))))
+                                                new PrintStatement(new ReadHeapExpression(new ReadHeapExpression(new VarExpression("a"))))
                                         )
                                 )
                         )
@@ -187,6 +187,38 @@ public class Interpreter {
                                         )),
                                 new PrintStatement(new VarExpression("v"))
 
+                        )
+                )
+        );
+
+        StatementInterface ex11 = new CompStatement(
+                new VarDeclarationStatement("v", new IntType()),
+                new CompStatement(
+                        new VarDeclarationStatement("a", new ReferenceType(new IntType())),
+                        new CompStatement(
+                                new AssignStatement("v", new ValueExpression(new IntValue(10))),
+                                new CompStatement(
+                                        new HeapAllocationStatement("a", new ValueExpression(new IntValue(22))),
+                                        new CompStatement(
+                                                new ForkStatement(
+                                                        new CompStatement(
+                                                                new WriteHeapStatement("a", new ValueExpression(new IntValue(30))),
+                                                                new CompStatement(
+                                                                        new AssignStatement("v", new ValueExpression(new IntValue(32))),
+                                                                        new CompStatement(
+                                                                                new PrintStatement(new VarExpression("v")),
+                                                                                new PrintStatement(new ReadHeapExpression(new VarExpression("a")))
+                                                                        )
+                                                                )
+
+                                                        )
+                                                ),
+                                                new CompStatement(
+                                                        new PrintStatement(new VarExpression("v")),
+                                                        new PrintStatement(new ReadHeapExpression(new VarExpression("a")))
+                                                )
+                                        )
+                                )
                         )
                 )
         );
@@ -231,6 +263,10 @@ public class Interpreter {
         RepositoryInterface repository10 = new Repository(program10, "logs\\log10.txt");
         Controller controller10 = new Controller(repository10);
 
+        ProgramState program11 = new ProgramState(new Stack<>(), new Dictionary<>(), new List<>(), new Dictionary<>(), new Heap<>(), ex11);
+        RepositoryInterface repository11 = new Repository(program11, "logs\\log11.txt");
+        Controller controller11 = new Controller(repository11);
+
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
         menu.addCommand(new RunExample("1", ex1.toString(), controller1));
@@ -243,6 +279,7 @@ public class Interpreter {
         menu.addCommand(new RunExample("8", ex8.toString(), controller8));
         menu.addCommand(new RunExample("9", ex9.toString(), controller9));
         menu.addCommand(new RunExample("10", ex10.toString(), controller10));
+        menu.addCommand(new RunExample("11", ex11.toString(), controller11));
 
         menu.start();
     }

@@ -4,7 +4,7 @@ import controller.Controller;
 import model.exceptions.MyException;
 
 public class RunExample extends Command {
-    private Controller controller;
+    private final Controller controller;
 
     public RunExample(String key, String description, Controller controller) {
         super(key, description);
@@ -16,6 +16,7 @@ public class RunExample extends Command {
         try {
             controller.allStepsExecution();
         } catch (MyException exception) {
+            exception.printStackTrace();
             System.out.println(exception.getMessage());
         }
 

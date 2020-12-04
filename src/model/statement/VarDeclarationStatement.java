@@ -25,7 +25,7 @@ public class VarDeclarationStatement implements StatementInterface {
             throw new VariableDefinitionException("Variable already exists");
         }
         symbolTable.add(name, type.defaultValue());
-        return state;
+        return null;
     }
 
     @Override

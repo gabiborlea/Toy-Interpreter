@@ -26,6 +26,11 @@ public class ReferenceValue implements ValueInterface {
     }
 
     @Override
+    public ValueInterface copy() {
+        return new ReferenceValue(address, locationType);
+    }
+
+    @Override
     public String toString() {
         return "(" + address + ", " + locationType + ")";
     }

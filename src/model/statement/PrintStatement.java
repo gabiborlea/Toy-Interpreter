@@ -19,7 +19,7 @@ public class PrintStatement implements StatementInterface{
         ListInterface<ValueInterface> output = state.getOutput();
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
         output.add(expression.evaluate(symbolTable, state.getMemoryHeap()));
-        return state;
+        return null;
     }
 
     @Override

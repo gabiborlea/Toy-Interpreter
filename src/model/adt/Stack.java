@@ -26,6 +26,11 @@ public class Stack<TElement> implements StackInterface<TElement> {
     }
 
     @Override
+    public void clear() {
+        stack.clear();
+    }
+
+    @Override
     public ArrayList<String> getElementsStrings() {
         ArrayList<String> elements = new ArrayList<>();
         for (var element: this.stack) {

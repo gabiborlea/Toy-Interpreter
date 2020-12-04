@@ -4,4 +4,6 @@ import model.type.TypeInterface;
 
 public interface ValueInterface {
     TypeInterface getType();
+
+    ValueInterface copy();
 }

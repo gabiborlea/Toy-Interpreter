@@ -43,7 +43,7 @@ public class CloseRFileStatement implements StatementInterface{
 
         fileTable.remove((StringValue) value);
 
-        return state;
+        return null;
 
     }
 

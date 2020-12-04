@@ -38,7 +38,7 @@ public class IfStatement implements StatementInterface{
         else
             throw new TypeException("Expression type is not a boolean");
 
-        return state;
+        return null;
     }
 
     @Override

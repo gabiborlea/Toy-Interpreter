@@ -1,11 +1,14 @@
 package model;
 
 import model.adt.*;
+import model.exceptions.MyException;
+import model.exceptions.StackException;
 import model.statement.StatementInterface;
 import model.value.StringValue;
 import model.value.ValueInterface;
 
 import java.io.BufferedReader;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProgramState {
     StackInterface<StatementInterface> executionStack;
@@ -13,6 +16,13 @@ public class ProgramState {
     ListInterface<ValueInterface> output;
     DictionaryInterface<StringValue, BufferedReader> fileTable;
     HeapInterface<ValueInterface> memoryHeap;
+    private final int id;
+
+    private static final AtomicInteger programStatesCount = new AtomicInteger(0);
+
+    private static synchronized int getNewProgramId() {
+        return programStatesCount.addAndGet(1);
+    }
 
     public ProgramState(StackInterface<StatementInterface> executionStack,
                         DictionaryInterface<String, ValueInterface> symbolTable,
@@ -20,6 +30,7 @@ public class ProgramState {
                         DictionaryInterface<StringValue, BufferedReader> fileTable,
                         HeapInterface<ValueInterface> memoryHeap,
                         StatementInterface program) {
+        id = getNewProgramId();
         this.executionStack = executionStack;
         this.symbolTable = symbolTable;
         this.output = output;
@@ -27,7 +38,6 @@ public class ProgramState {
         this.memoryHeap = memoryHeap;
         executionStack.push(program);
     }
-
 
     public StackInterface<StatementInterface> getExecutionStack() {
         return executionStack;
@@ -61,6 +71,21 @@ public class ProgramState {
         this.output = output;
     }
 
+    public boolean isNotCompleted() {
+        return !executionStack.isEmpty();
+    }
+
+    public ProgramState oneStepExecution() throws MyException {
+        if (executionStack.isEmpty())
+            throw new StackException("program state stack is empty");
+        try {
+            return executionStack.pop().execute(this);
+        } catch (MyException exception) {
+            executionStack.clear();
+            throw exception;
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder executionStack = new StringBuilder();
@@ -85,7 +110,8 @@ public class ProgramState {
             memoryHeap.append(element.get(0)).append("-->").append(element.get(1)).append("\n");
 
 
-        return "Execution Stack:\n" + executionStack + "\n" +
+        return  "ID: " + id + "\n" +
+                "Execution Stack:\n" + executionStack + "\n" +
                 "Symbol Table:\n" + symbolTable + "\n" +
                 "Output:\n" + output + "\n" +
                 "File Table:\n" + fileTable + "\n" +

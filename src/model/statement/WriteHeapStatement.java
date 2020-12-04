@@ -45,7 +45,7 @@ public class WriteHeapStatement implements StatementInterface {
 
         memoryHeap.update(address, value);
 
-        return state;
+        return null;
     }
 
     @Override

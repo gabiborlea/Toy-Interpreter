@@ -43,7 +43,7 @@ public class OpenRFileStatement implements StatementInterface{
             }
             fileTable.add((StringValue)value, fileDescriptor);
 
-            return state;
+            return null;
 
         }
         else

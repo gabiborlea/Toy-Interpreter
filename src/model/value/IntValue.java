@@ -15,6 +15,11 @@ public class IntValue implements ValueInterface{
         return new IntType();
     }
 
+    @Override
+    public ValueInterface copy() {
+        return new IntValue(value);
+    }
+
     public int getValue() {
         return value;
     }
