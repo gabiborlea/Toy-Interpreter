@@ -9,6 +9,7 @@ import model.exceptions.TypeException;
 import model.exceptions.VariableDefinitionException;
 import model.expression.ExpressionInterface;
 import model.type.ReferenceType;
+import model.type.TypeInterface;
 import model.value.ReferenceValue;
 import model.value.ValueInterface;
 
@@ -46,6 +47,16 @@ public class WriteHeapStatement implements StatementInterface {
         memoryHeap.update(address, value);
 
         return null;
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        TypeInterface typeVariable = typeEnv.get(variableName);
+        TypeInterface typeExpression = expression.typeCheck(typeEnv);
+        if (!typeVariable.equals(new ReferenceType(typeExpression)))
+            throw new TypeException("write heap statement: right hand side and left hand side have different types ");
+
+        return typeEnv;
     }
 
     @Override

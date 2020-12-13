@@ -10,7 +10,7 @@ public class ReferenceType implements TypeInterface {
         this.inner = inner;
     }
 
-    TypeInterface getInner() {
+    public TypeInterface getInner() {
         return inner;
     }
 

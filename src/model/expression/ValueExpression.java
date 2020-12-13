@@ -3,6 +3,7 @@ package model.expression;
 import model.adt.DictionaryInterface;
 import model.adt.HeapInterface;
 import model.exceptions.MyException;
+import model.type.TypeInterface;
 import model.value.ValueInterface;
 
 public class ValueExpression implements ExpressionInterface{
@@ -15,6 +16,11 @@ public class ValueExpression implements ExpressionInterface{
     @Override
     public ValueInterface evaluate(DictionaryInterface<String, ValueInterface> table, HeapInterface<ValueInterface> heap) throws MyException {
         return value;
+    }
+
+    @Override
+    public TypeInterface typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        return value.getType();
     }
 
     @Override

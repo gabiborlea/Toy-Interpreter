@@ -5,6 +5,7 @@ import model.adt.DictionaryInterface;
 import model.adt.ListInterface;
 import model.exceptions.MyException;
 import model.expression.ExpressionInterface;
+import model.type.TypeInterface;
 import model.value.ValueInterface;
 
 public class PrintStatement implements StatementInterface{
@@ -20,6 +21,12 @@ public class PrintStatement implements StatementInterface{
         DictionaryInterface<String, ValueInterface> symbolTable = state.getSymbolTable();
         output.add(expression.evaluate(symbolTable, state.getMemoryHeap()));
         return null;
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        expression.typeCheck(typeEnv);
+        return typeEnv;
     }
 
     @Override

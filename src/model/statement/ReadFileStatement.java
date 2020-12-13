@@ -9,6 +9,7 @@ import model.exceptions.VariableDefinitionException;
 import model.expression.ExpressionInterface;
 import model.type.IntType;
 import model.type.StringType;
+import model.type.TypeInterface;
 import model.value.IntValue;
 import model.value.StringValue;
 import model.value.ValueInterface;
@@ -16,7 +17,7 @@ import model.value.ValueInterface;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class ReadFileStatement implements StatementInterface{
+public class ReadFileStatement implements StatementInterface {
     ExpressionInterface expression;
     String variableName;
 
@@ -43,7 +44,7 @@ public class ReadFileStatement implements StatementInterface{
         if (!value.getType().equals(new StringType()))
             throw new TypeException("Expresion is not of string type");
 
-        if (!fileTable.isDefined((StringValue)value))
+        if (!fileTable.isDefined((StringValue) value))
             throw new InOutException("There is no file descriptor associated to " + ((StringValue) value).getValue());
 
         BufferedReader fileDescriptor = fileTable.get((StringValue) value);
@@ -65,8 +66,22 @@ public class ReadFileStatement implements StatementInterface{
         return null;
 
     }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        TypeInterface typeVariable = typeEnv.get(variableName);
+        TypeInterface typeExpression = expression.typeCheck(typeEnv);
+        if (!typeVariable.equals(new IntType()))
+            throw new TypeException(variableName + " is not of int type");
+
+        if (!typeExpression.equals(new StringType()))
+            throw new TypeException(expression + " is not of string type");
+
+        return typeEnv;
+    }
+
     @Override
     public String toString() {
-        return "readFile("+expression.toString()+")";
+        return "readFile(" + expression.toString() + ")";
     }
 }

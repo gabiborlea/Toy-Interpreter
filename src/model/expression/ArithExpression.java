@@ -7,6 +7,7 @@ import model.exceptions.MyException;
 import model.exceptions.OperatorException;
 import model.exceptions.TypeException;
 import model.type.IntType;
+import model.type.TypeInterface;
 import model.value.IntValue;
 import model.value.ValueInterface;
 
@@ -62,6 +63,21 @@ public class ArithExpression implements ExpressionInterface{
         else
             throw new TypeException("First operand is not an integer");
 
+    }
+
+    @Override
+    public TypeInterface typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        TypeInterface type1, type2;
+        type1 = expression1.typeCheck(typeEnv);
+        type2 = expression2.typeCheck(typeEnv);
+
+        if (!type1.equals(new IntType()))
+            throw new TypeException("first operand is not an integer");
+
+        if (!type2.equals(new IntType()))
+            throw new TypeException("second operand is not an integer");
+
+        return new IntType();
     }
 
     @Override
