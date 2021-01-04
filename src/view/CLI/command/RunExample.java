@@ -1,4 +1,4 @@
-package view.command;
+package view.CLI.command;
 
 import controller.Controller;
 import model.ProgramState;
@@ -30,7 +30,7 @@ public class RunExample extends Command {
             Controller controller = new Controller(repository);
             controller.allStepsExecution();
         } catch (MyException exception) {
-            exception.printStackTrace();
+//            exception.printStackTrace();
             System.out.println(exception.getMessage());
         }
 

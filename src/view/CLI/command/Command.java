@@ -1,4 +1,4 @@
-package view.command;
+package view.CLI.command;
 
 public abstract class Command {
     private final String key;

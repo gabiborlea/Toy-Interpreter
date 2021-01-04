@@ -1,9 +1,5 @@
-import controller.Controller;
-import model.ProgramState;
-import model.adt.Dictionary;
-import model.adt.Heap;
-import model.adt.List;
-import model.adt.Stack;
+package utils;
+
 import model.expression.*;
 import model.statement.*;
 import model.type.BoolType;
@@ -13,15 +9,12 @@ import model.type.StringType;
 import model.value.BoolValue;
 import model.value.IntValue;
 import model.value.StringValue;
-import repository.Repository;
-import repository.RepositoryInterface;
-import view.TextMenu;
-import view.command.ExitCommand;
-import view.command.RunExample;
 
-public class Interpreter {
-    public static void main(String[] args) {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Programs {
+    public static List<StatementInterface> getPrograms() {
         StatementInterface ex1 = new CompStatement(
                 new VarDeclarationStatement("v", new IntType()),
                 new CompStatement(
@@ -239,23 +232,6 @@ public class Interpreter {
                         )
                 )
         );
-
-        TextMenu menu = new TextMenu();
-        menu.addCommand(new ExitCommand("0", "exit"));
-        menu.addCommand(new RunExample("1", ex1.toString(), ex1, "logs\\log1.txt"));
-        menu.addCommand(new RunExample("2", ex2.toString(), ex2, "logs\\log2.txt"));
-        menu.addCommand(new RunExample("3", ex3.toString(), ex3, "logs\\log3.txt"));
-        menu.addCommand(new RunExample("4", ex4.toString(), ex4, "logs\\log4.txt"));
-        menu.addCommand(new RunExample("5", ex5.toString(), ex5, "logs\\log5.txt"));
-        menu.addCommand(new RunExample("6", ex6.toString(), ex6, "logs\\log6.txt"));
-        menu.addCommand(new RunExample("7", ex7.toString(), ex7, "logs\\log7.txt"));
-        menu.addCommand(new RunExample("8", ex8.toString(), ex8, "logs\\log8.txt"));
-        menu.addCommand(new RunExample("9", ex9.toString(), ex9, "logs\\log9.txt"));
-        menu.addCommand(new RunExample("10", ex10.toString(), ex10, "logs\\log10.txt"));
-        menu.addCommand(new RunExample("11", ex11.toString(), ex11, "logs\\log11.txt"));
-        menu.addCommand(new RunExample("12", ex12.toString(), ex12, "logs\\log12.txt"));
-
-        menu.start();
+        return new ArrayList<>(List.of(ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8, ex9, ex10, ex11, ex12));
     }
-
 }

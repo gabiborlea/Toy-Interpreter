@@ -1,5 +1,5 @@
-package view;
-import view.command.Command;
+package view.CLI;
+import view.CLI.command.Command;
 
 import java.util.HashMap;
 import java.util.Scanner;
