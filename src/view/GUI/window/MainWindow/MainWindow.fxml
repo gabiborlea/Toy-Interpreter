@@ -56,7 +56,6 @@
                     <children>
                         <Button mnemonicParsing="false" onAction="#nextButtonOnPress" text="One Step" VBox.vgrow="ALWAYS"/>
                         <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
-                        <!--                        <Button fx:id="backBtn" mnemonicParsing="false" onAction="#onBackPressed" text="Back"/>-->
                     </children>
                 </VBox>
 
@@ -88,7 +87,7 @@
                 <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <children>
                         <Text boundsType="LOGICAL_VERTICAL_CENTER" strokeType="OUTSIDE" strokeWidth="0.0" text="Memory Heap" textAlignment="CENTER"
-                              wrappingWidth="29.33679962158203" VBox.vgrow="ALWAYS"/>
+                              wrappingWidth="99" VBox.vgrow="ALWAYS"/>
                         <TableView fx:id="heapTableView" prefHeight="200.0" prefWidth="200.0">
                             <columns>
                                 <TableColumn fx:id="heapAddressColumn" maxWidth="1.7976931348623157E308"
@@ -117,7 +116,7 @@
                 <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Output" textAlignment="CENTER"
-                              wrappingWidth="21.336673736572266"/>
+                              wrappingWidth="99"/>
                         <ListView fx:id="outputListView" prefHeight="200.0" prefWidth="200.0"/>
                     </children>
                 </VBox>

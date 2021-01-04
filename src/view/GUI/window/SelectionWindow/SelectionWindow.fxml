@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.stage.*?>
 
-<Stage minHeight="300.0" minWidth="500.0" title="Select Program" xmlns="http://javafx.com/javafx/10.0.2-internal"
+<Stage minHeight="400.0" minWidth="800.0" title="Select Program" xmlns="http://javafx.com/javafx/10.0.2-internal"
        xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GUI.window.SelectionWindow.SelectionWindowController">
     <scene>
         <Scene>

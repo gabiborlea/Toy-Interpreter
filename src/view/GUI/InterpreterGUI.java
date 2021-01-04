@@ -14,7 +14,7 @@ public class InterpreterGUI extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(MainWindowController.getFXMLPath());
         stage.setTitle("Interpreter");
-        stage.setScene(new Scene(root, 500, 300));
+        stage.setScene(new Scene(root, 800, 400));
         stage.show();
         stage.centerOnScreen();
     }
