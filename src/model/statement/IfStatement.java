@@ -7,6 +7,7 @@ import model.exceptions.MyException;
 import model.exceptions.TypeException;
 import model.expression.ExpressionInterface;
 import model.type.BoolType;
+import model.type.TypeInterface;
 import model.value.BoolValue;
 import model.value.ValueInterface;
 
@@ -39,6 +40,18 @@ public class IfStatement implements StatementInterface{
             throw new TypeException("Expression type is not a boolean");
 
         return null;
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        TypeInterface typeExpression = expression.typeCheck(typeEnv);
+        if (!typeExpression.equals(new BoolType()))
+            throw new TypeException("The condition of IF has not the type bool");
+
+        thenStatement.typeCheck(typeEnv.copy());
+        elseStatement.typeCheck(typeEnv.copy());
+
+        return typeEnv;
     }
 
     @Override

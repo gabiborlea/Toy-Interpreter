@@ -59,6 +59,8 @@ public class ProgramState {
         return memoryHeap;
     }
 
+    public int getId() { return id;}
+
     public void setExecutionStack(StackInterface<StatementInterface> executionStack) {
         this.executionStack = executionStack;
     }
@@ -86,8 +88,7 @@ public class ProgramState {
         }
     }
 
-    @Override
-    public String toString() {
+    public String toLogs() {
         StringBuilder executionStack = new StringBuilder();
         StringBuilder symbolTable = new StringBuilder();
         StringBuilder output = new StringBuilder();
@@ -116,5 +117,10 @@ public class ProgramState {
                 "Output:\n" + output + "\n" +
                 "File Table:\n" + fileTable + "\n" +
                 "Memory Heap:\n" + memoryHeap + "--------------------------\n\n";
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(getId());
     }
 }

@@ -1,8 +1,10 @@
 package model.statement;
 
 import model.ProgramState;
+import model.adt.DictionaryInterface;
 import model.adt.StackInterface;
 import model.exceptions.MyException;
+import model.type.TypeInterface;
 
 public class CompStatement implements StatementInterface{
     StatementInterface first;
@@ -20,6 +22,11 @@ public class CompStatement implements StatementInterface{
         executionStack.push(first);
 
         return null;
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        return second.typeCheck(first.typeCheck(typeEnv));
     }
 
     @Override

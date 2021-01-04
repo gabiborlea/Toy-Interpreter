@@ -29,6 +29,12 @@ public class VarDeclarationStatement implements StatementInterface {
     }
 
     @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        typeEnv.add(name, type);
+        return typeEnv;
+    }
+
+    @Override
     public String toString() {
         return type + " " + name;
     }

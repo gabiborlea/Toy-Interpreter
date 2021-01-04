@@ -1,10 +1,12 @@
 package model.statement;
 
 import model.ProgramState;
+import model.adt.DictionaryInterface;
 import model.exceptions.MyException;
 import model.exceptions.TypeException;
 import model.expression.ExpressionInterface;
 import model.type.BoolType;
+import model.type.TypeInterface;
 import model.value.BoolValue;
 import model.value.ValueInterface;
 
@@ -30,6 +32,15 @@ public class WhileStatement implements StatementInterface{
         }
 
         return null;
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        TypeInterface typeCondition = conditionExpression.typeCheck(typeEnv);
+        if(!typeCondition.equals(new BoolType()))
+            throw new TypeException("Condition in while loop is not of bool type");
+        blockStatement.typeCheck(typeEnv);
+        return typeEnv;
     }
 
     @Override

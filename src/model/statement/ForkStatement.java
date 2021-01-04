@@ -5,6 +5,7 @@ import model.adt.Dictionary;
 import model.adt.DictionaryInterface;
 import model.adt.Stack;
 import model.exceptions.MyException;
+import model.type.TypeInterface;
 import model.value.ValueInterface;
 
 import java.util.AbstractMap;
@@ -27,6 +28,12 @@ public class ForkStatement implements StatementInterface{
                         .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue)));
 
         return new ProgramState(new Stack<>(), newSymbolTable, state.getOutput(), state.getFileTable(), state.getMemoryHeap(), blockStatement);
+    }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        blockStatement.typeCheck(typeEnv.copy());
+        return typeEnv;
     }
 
     @Override

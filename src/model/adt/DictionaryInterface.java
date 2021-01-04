@@ -13,4 +13,5 @@ public interface DictionaryInterface<TKey, TElement> {
     void setContent(Map<TKey, TElement> newContent);
     Map<TKey, TElement> getContent();
     ArrayList<ArrayList<String>> getElementsStrings();
+    DictionaryInterface<TKey, TElement> copy();
 }

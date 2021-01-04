@@ -6,6 +6,8 @@ import model.exceptions.MyException;
 import model.exceptions.OperatorException;
 import model.exceptions.TypeException;
 import model.type.BoolType;
+import model.type.IntType;
+import model.type.TypeInterface;
 import model.value.BoolValue;
 import model.value.ValueInterface;
 
@@ -45,6 +47,21 @@ public class LogicExpression implements ExpressionInterface{
         }
         else
             throw new TypeException("First operand is not a boolean");
+    }
+
+    @Override
+    public TypeInterface typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        TypeInterface type1, type2;
+        type1 = expression1.typeCheck(typeEnv);
+        type2 = expression2.typeCheck(typeEnv);
+
+        if (!type1.equals(new BoolType()))
+            throw new TypeException("first operand is not a boolean");
+
+        if (!type2.equals(new BoolType()))
+            throw new TypeException("second operand is not a boolean");
+
+        return new BoolType();
     }
 
     @Override

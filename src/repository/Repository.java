@@ -35,7 +35,7 @@ public class Repository implements RepositoryInterface {
     public void logProgramStateExecution(ProgramState programState) throws MyException{
         try {
             var logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
-            logFile.append(programState.toString());
+            logFile.append(programState.toLogs());
             logFile.close();
         } catch (IOException exception) {
             throw new InOutException(exception.getMessage());

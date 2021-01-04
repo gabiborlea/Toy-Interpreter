@@ -66,6 +66,13 @@ public class Dictionary<TKey, TElement> implements DictionaryInterface<TKey, TEl
     }
 
     @Override
+    public DictionaryInterface<TKey, TElement> copy() {
+        Dictionary<TKey, TElement> clone = new Dictionary<>();
+        clone.setContent(getContent());
+        return clone;
+    }
+
+    @Override
     public String toString() {
         return dictionary.toString();
     }

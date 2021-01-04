@@ -6,6 +6,7 @@ import model.exceptions.HeapException;
 import model.exceptions.MyException;
 import model.exceptions.TypeException;
 import model.type.ReferenceType;
+import model.type.TypeInterface;
 import model.value.ReferenceValue;
 import model.value.ValueInterface;
 
@@ -29,6 +30,15 @@ public class ReadHeapExpression implements ExpressionInterface {
             throw new HeapException(value + " is not defined in the heap");
 
         return heap.get(address);
+    }
+
+    @Override
+    public TypeInterface typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        TypeInterface type = expression.typeCheck(typeEnv);
+        if(!(type instanceof ReferenceType))
+            throw new TypeException("the readHeap argument is not a Reference Type");
+        ReferenceType referenceType = (ReferenceType) type;
+        return referenceType.getInner();
     }
 
     @Override

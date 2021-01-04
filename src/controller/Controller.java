@@ -32,7 +32,7 @@ public class Controller {
 
     }
 
-    void oneStepForAllPrograms(java.util.List<ProgramState> programStatesList) {
+    public void oneStepForAllPrograms(java.util.List<ProgramState> programStatesList) {
         programStatesList.forEach(program -> repository.logProgramStateExecution(program));
         java.util.List<Callable<ProgramState>> callList = programStatesList.stream()
                 .map((ProgramState program) -> (Callable<ProgramState>) (program::oneStepExecution))
@@ -80,23 +80,47 @@ public class Controller {
         repository.setProgramStatesList(programStatesList);
     }
 
+    public void oneStepExecution() throws MyException {
+        executor = Executors.newFixedThreadPool(2);
 
+        java.util.List<ProgramState> programStatesList = removeCompletedPrograms(repository.getProgramStatesList());
+        repository.setProgramStatesList(programStatesList);
+        if (programStatesList.size() == 0) {
+            executor.shutdownNow();
+            throw new RunTimeException("Program is finished");
+        }
+        var memoryHeap = programStatesList.get(0).getMemoryHeap();
+        memoryHeap.setContent(safeGarbageCollector(
+                getAddressesFromSymbolTables(programStatesList),
+                getAddressesMemoryHeap(memoryHeap.getContent().values()),
+                memoryHeap.getContent()
+                )
+        );
+        oneStepForAllPrograms(programStatesList);
+        programStatesList = removeCompletedPrograms(repository.getProgramStatesList());
+        executor.shutdown();
+        repository.setProgramStatesList(programStatesList);
+    }
 
-    private java.util.List<Integer> getAddressesSymbolTable(Collection<ValueInterface> symbolTableValues) {
+    public java.util.List<ProgramState> getProgramStatesList() {
+        return repository.getProgramStatesList();
+    }
+
+    public java.util.List<Integer> getAddressesSymbolTable(Collection<ValueInterface> symbolTableValues) {
         return symbolTableValues.stream()
                 .filter(value -> value instanceof ReferenceValue)
                 .map(value -> ((ReferenceValue) value).getAddress())
                 .collect(Collectors.toList());
     }
 
-    private java.util.List<Integer> getAddressesMemoryHeap(Collection<ValueInterface> memoryHeapValues) {
+    public java.util.List<Integer> getAddressesMemoryHeap(Collection<ValueInterface> memoryHeapValues) {
         return memoryHeapValues.stream()
                 .filter(value -> value instanceof ReferenceValue)
                 .map(value -> ((ReferenceValue) value).getAddress())
                 .collect(Collectors.toList());
     }
 
-    private java.util.List<Integer> getAddressesFromSymbolTables(java.util.List<ProgramState> programStatesList) {
+    public java.util.List<Integer> getAddressesFromSymbolTables(java.util.List<ProgramState> programStatesList) {
 
         return programStatesList.stream()
                 .flatMap(programState -> getAddressesSymbolTable(programState.getSymbolTable().getContent().values()).stream())
@@ -104,9 +128,9 @@ public class Controller {
 
     }
 
-    private Map<Integer, ValueInterface> safeGarbageCollector(java.util.List<Integer> symbolTableAddresses,
-                                                              java.util.List<Integer> memoryHeapAddresses,
-                                                              Map<Integer, ValueInterface> heap) {
+    public Map<Integer, ValueInterface> safeGarbageCollector(java.util.List<Integer> symbolTableAddresses,
+                                                             java.util.List<Integer> memoryHeapAddresses,
+                                                             Map<Integer, ValueInterface> heap) {
         return heap.entrySet().stream()
                 .filter(e -> symbolTableAddresses.contains(e.getKey()) || memoryHeapAddresses.contains(e.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));

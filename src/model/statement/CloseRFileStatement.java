@@ -7,6 +7,7 @@ import model.exceptions.MyException;
 import model.exceptions.TypeException;
 import model.expression.ExpressionInterface;
 import model.type.StringType;
+import model.type.TypeInterface;
 import model.value.StringValue;
 import model.value.ValueInterface;
 
@@ -46,6 +47,16 @@ public class CloseRFileStatement implements StatementInterface{
         return null;
 
     }
+
+    @Override
+    public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
+        TypeInterface typeExpression = expression.typeCheck(typeEnv);
+        if(!typeExpression.equals(new StringType()))
+            throw new TypeException("Expresion is not of string type");
+
+        return typeEnv;
+    }
+
 
     @Override
     public String toString() {
