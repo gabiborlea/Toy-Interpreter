@@ -232,6 +232,92 @@ public class Programs {
                         )
                 )
         );
-        return new ArrayList<>(List.of(ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8, ex9, ex10, ex11, ex12));
+
+        StatementInterface ex13 =
+                new CompStatement(
+                        new VarDeclarationStatement("v1", new ReferenceType(new IntType())),
+                        new CompStatement(
+                                new VarDeclarationStatement("v2", new ReferenceType(new IntType())),
+                                new CompStatement(
+                                        new HeapAllocationStatement("v1", new ValueExpression(new IntValue(20))),
+                                        new CompStatement(
+                                                new HeapAllocationStatement("v2", new ValueExpression(new IntValue(30))),
+                                                new CompStatement(
+                                                        new NewLockStatement("x"),
+                                                        new CompStatement(
+                                                                new ForkStatement(
+                                                                        new CompStatement(
+                                                                                new ForkStatement(
+                                                                                        new CompStatement(
+                                                                                                new LockStatement("x"),
+                                                                                                new CompStatement(
+                                                                                                        new WriteHeapStatement("v1", new ArithExpression(2, new ReadHeapExpression(new VarExpression("v1")), new ValueExpression(new IntValue(1)))),
+                                                                                                        new UnlockStatement("x")
+                                                                                                )
+
+                                                                                        )
+                                                                                ),
+                                                                                new CompStatement(
+                                                                                        new LockStatement("x"),
+                                                                                        new CompStatement(
+                                                                                                new WriteHeapStatement("v1", new ArithExpression(1, new ReadHeapExpression(new VarExpression("v1")), new ValueExpression(new IntValue(1)))),
+                                                                                                new UnlockStatement("x")
+                                                                                        )
+                                                                                )
+                                                                        )
+
+                                                                ),
+                                                                new CompStatement(
+                                                                        new ForkStatement(
+                                                                                new CompStatement(
+                                                                                        new ForkStatement(
+                                                                                                new WriteHeapStatement("v2", new ArithExpression(1, new ReadHeapExpression(new VarExpression("v2")), new ValueExpression(new IntValue(1))))
+                                                                                        ),
+                                                                                        new CompStatement(
+                                                                                                new WriteHeapStatement("v2", new ArithExpression(1, new ReadHeapExpression(new VarExpression("v2")), new ValueExpression(new IntValue(1)))),
+                                                                                                new UnlockStatement("x")
+                                                                                        )
+                                                                                )
+                                                                        ),
+                                                                        new CompStatement(
+                                                                                new NopStatement(),
+                                                                                new CompStatement(
+                                                                                        new NopStatement(),
+                                                                                        new CompStatement(
+                                                                                                new NopStatement(),
+                                                                                                new CompStatement(
+                                                                                                        new NopStatement(),
+                                                                                                        new CompStatement(
+                                                                                                                new NopStatement(),
+                                                                                                                new CompStatement(
+                                                                                                                        new NopStatement(),
+                                                                                                                        new CompStatement(
+                                                                                                                                new NopStatement(),
+                                                                                                                                new CompStatement(
+                                                                                                                                        new NopStatement(),
+                                                                                                                                        new CompStatement(
+                                                                                                                                                new NopStatement(),
+                                                                                                                                                new CompStatement(
+                                                                                                                                                        new PrintStatement(new ReadHeapExpression(new VarExpression("v1"))),
+                                                                                                                                                        new PrintStatement(new ReadHeapExpression(new VarExpression("v2")))
+                                                                                                                                                )
+                                                                                                                                        )
+                                                                                                                                )
+                                                                                                                        )
+                                                                                                                )
+                                                                                                        )
+                                                                                                )
+                                                                                        )
+                                                                                )
+                                                                        )
+                                                                )
+
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                );
+        return new ArrayList<>(List.of(ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8, ex9, ex10, ex11, ex12, ex13));
     }
 }

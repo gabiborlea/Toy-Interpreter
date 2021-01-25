@@ -16,6 +16,7 @@ public class ProgramState {
     ListInterface<ValueInterface> output;
     DictionaryInterface<StringValue, BufferedReader> fileTable;
     HeapInterface<ValueInterface> memoryHeap;
+    LockTableInterface lockTable;
     private final int id;
 
     private static final AtomicInteger programStatesCount = new AtomicInteger(0);
@@ -29,6 +30,7 @@ public class ProgramState {
                         ListInterface<ValueInterface> output,
                         DictionaryInterface<StringValue, BufferedReader> fileTable,
                         HeapInterface<ValueInterface> memoryHeap,
+                        LockTableInterface lockTable,
                         StatementInterface program) {
         id = getNewProgramId();
         this.executionStack = executionStack;
@@ -36,6 +38,7 @@ public class ProgramState {
         this.output = output;
         this.fileTable = fileTable;
         this.memoryHeap = memoryHeap;
+        this.lockTable = lockTable;
         executionStack.push(program);
     }
 
@@ -58,6 +61,8 @@ public class ProgramState {
     public HeapInterface<ValueInterface> getMemoryHeap() {
         return memoryHeap;
     }
+
+    public LockTableInterface getLockTable() {return lockTable;}
 
     public int getId() { return id;}
 
@@ -94,6 +99,7 @@ public class ProgramState {
         StringBuilder output = new StringBuilder();
         StringBuilder fileTable = new StringBuilder();
         StringBuilder memoryHeap = new StringBuilder();
+        StringBuilder lockTable = new StringBuilder();
 
         for (var element : this.executionStack.getElementsStrings())
             executionStack.append(element).append("\n");
@@ -110,13 +116,17 @@ public class ProgramState {
         for (var element : this.memoryHeap.getElementsStrings())
             memoryHeap.append(element.get(0)).append("-->").append(element.get(1)).append("\n");
 
+        for (var element : this.lockTable.getElementsStrings())
+            lockTable.append(element.get(0)).append("-->").append(element.get(1)).append("\n");
+
 
         return  "ID: " + id + "\n" +
                 "Execution Stack:\n" + executionStack + "\n" +
                 "Symbol Table:\n" + symbolTable + "\n" +
                 "Output:\n" + output + "\n" +
                 "File Table:\n" + fileTable + "\n" +
-                "Memory Heap:\n" + memoryHeap + "--------------------------\n\n";
+                "Memory Heap:\n" + memoryHeap + "\n" +
+                "Lock Table:\n" + lockTable + "--------------------------\n\n";
     }
 
     @Override

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.stage.*?>
+
+<Stage minHeight="400.0" minWidth="800.0" title="Select Program" xmlns="http://javafx.com/javafx/10.0.2-internal"
+       xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GUI.window.SelectionWindow.SelectionWindowController">
+    <scene>
+        <Scene>
+            <AnchorPane prefHeight="200" prefWidth="200">
+                <VBox prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <ListView id="programList" fx:id="programList" VBox.vgrow="ALWAYS"/>
+                    <ToolBar nodeOrientation="RIGHT_TO_LEFT" VBox.vgrow="NEVER">
+                        <Button id="cancelButton" fx:id="cancelButton" cancelButton="true"
+                                mnemonicParsing="false" onAction="#cancelButtonOnClick" prefWidth="52.0"
+                                text="Cancel"/>
+                        <Button id="chooseButton" fx:id="chooseButton" defaultButton="true" mnemonicParsing="false"
+                                onAction="#chooseButtonOnClick" prefWidth="60.0" text="Choose"/>
+                    </ToolBar>
+                </VBox>
+            </AnchorPane>
+        </Scene>
+    </scene>
+</Stage>

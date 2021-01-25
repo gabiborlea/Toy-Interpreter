@@ -27,7 +27,7 @@ public class ForkStatement implements StatementInterface{
                 .map( (Map.Entry<String, ValueInterface> entry) -> new AbstractMap.SimpleEntry<>(entry.getKey(), entry.getValue().copy()))
                         .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue)));
 
-        return new ProgramState(new Stack<>(), newSymbolTable, state.getOutput(), state.getFileTable(), state.getMemoryHeap(), blockStatement);
+        return new ProgramState(new Stack<>(), newSymbolTable, state.getOutput(), state.getFileTable(), state.getMemoryHeap(), state.getLockTable(), blockStatement);
     }
 
     @Override
