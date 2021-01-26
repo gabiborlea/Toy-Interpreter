@@ -2,7 +2,10 @@ package view.CLI.command;
 
 import controller.Controller;
 import model.ProgramState;
-import model.adt.*;
+import model.adt.Dictionary;
+import model.adt.Heap;
+import model.adt.List;
+import model.adt.Stack;
 import model.exceptions.MyException;
 import model.statement.StatementInterface;
 import repository.Repository;
@@ -22,7 +25,7 @@ public class RunExample extends Command {
     public void execute() {
         try {
             statement.typeCheck(new Dictionary<>());
-            ProgramState program = new ProgramState(new Stack<>(), new Dictionary<>(), new List<>(), new Dictionary<>(), new Heap<>(), new LockTable(),statement);
+            ProgramState program = new ProgramState(new Stack<>(), new Dictionary<>(), new List<>(), new Dictionary<>(), new Heap<>(), statement);
             RepositoryInterface repository = new Repository(program, logFile);
             Controller controller = new Controller(repository);
             controller.allStepsExecution();

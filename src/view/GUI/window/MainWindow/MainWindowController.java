@@ -41,15 +41,6 @@ public class MainWindowController {
     @FXML
     private TableColumn<Pair<Integer, ValueInterface>, ValueInterface> heapValueColumn;
     @FXML
-    private TableView<Pair<Integer, Integer>> lockTableView;
-
-    @FXML
-    private TableColumn<Pair<Integer, Integer>, Integer> lockAddressColumn;
-
-    @FXML
-    private TableColumn<Pair<Integer, Integer>, Integer> lockValueColumn;
-
-    @FXML
     private ListView<StringValue> fileTableListView;
     @FXML
     private ListView<ValueInterface> outputListView;
@@ -133,22 +124,14 @@ public class MainWindowController {
                 })));
     }
 
-    public void setLockTableView() {
-        lockTableView.setItems(programState.getLockTable().getContent().entrySet().stream()
-                .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
-                .collect(Collector.of(FXCollections::observableArrayList, ObservableList::add, (elem1, elem2) -> {
-                    elem1.addAll(elem2);
-                    return elem1;
-                })));
-    }
-
     private void setProgramProperties(ProgramState programState) {
         setExecutionStackListView(programState);
         setOutputListView();
         setSymbolTableView(programState);
         setFileTableListView();
         setHeapTableView();
-        setLockTableView();
+
+
     }
     private void setProgramStatesListView() {
         programStatesListView.itemsProperty().bind(getListProperty());
@@ -157,7 +140,7 @@ public class MainWindowController {
     }
 
     public void initialize() {
-        programState = new ProgramState(new Stack<>(), new Dictionary<>(), new List<>(), new Dictionary<>(), new Heap<>(), new LockTable(),selectProgram());
+        programState = new ProgramState(new Stack<>(), new Dictionary<>(), new List<>(), new Dictionary<>(), new Heap<>(), selectProgram());
         repository = new Repository(programState, "logs\\logGUI.txt");
         controller = new Controller(repository);
         setProgramStatesListView();
@@ -178,9 +161,6 @@ public class MainWindowController {
 
         this.heapAddressColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getKey()));
         this.heapValueColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getValue()));
-
-        this.lockAddressColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getKey()));
-        this.lockValueColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getValue()));
     }
 
     @FXML
