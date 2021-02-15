@@ -15,4 +15,8 @@ public class NopStatement implements StatementInterface {
     public DictionaryInterface<String, TypeInterface> typeCheck(DictionaryInterface<String, TypeInterface> typeEnv) throws MyException {
         return typeEnv;
     }
+    @Override
+    public String toString() {
+        return "skip";
+    }
 }

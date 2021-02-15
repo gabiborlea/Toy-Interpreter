@@ -121,6 +121,21 @@
                     </children>
                 </VBox>
 
+                <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                    <children>
+                        <Text boundsType="LOGICAL_VERTICAL_CENTER" strokeType="OUTSIDE" strokeWidth="0.0" text="Lock Table" textAlignment="CENTER"
+                              wrappingWidth="99" VBox.vgrow="ALWAYS"/>
+                        <TableView fx:id="lockTableView" prefHeight="200.0" prefWidth="200.0">
+                            <columns>
+                                <TableColumn fx:id="lockAddressColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="-Infinity" prefWidth="109.60003966093063" text="Address"/>
+                                <TableColumn fx:id="lockValueColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="-Infinity" prefWidth="103.20001220703125" text="Value"/>
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+
 
             </children>
         </GridPane>
