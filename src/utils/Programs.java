@@ -316,6 +316,19 @@ public class Programs {
                         )
                 )
         );
-        return new ArrayList<>(List.of(ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8, ex9, ex10, ex11, ex12, ex13));
+
+        StatementInterface ex14 = new CompStatement(
+                new VarDeclarationStatement("v", new IntType()),
+                new CompStatement(
+                        new ForStatement("v", new ValueExpression(new IntValue(0)), new ValueExpression(new IntValue(3)),
+                                new ArithExpression(1, new VarExpression("v"), new ValueExpression(new IntValue(1))),
+                                new ForkStatement(new CompStatement(
+                                        new PrintStatement(new VarExpression("v")),
+                                        new AssignStatement("v", new ArithExpression(1, new VarExpression("v"), new ValueExpression(new IntValue(1)))
+                                )))),
+                        new PrintStatement(new ArithExpression(3, new VarExpression("v"), new ValueExpression(new IntValue(10))))
+                )
+        );
+        return new ArrayList<>(List.of(ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8, ex9, ex10, ex11, ex12, ex13, ex14));
     }
 }
