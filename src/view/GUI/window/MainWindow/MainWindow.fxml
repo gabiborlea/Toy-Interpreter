@@ -120,6 +120,23 @@
                         <ListView fx:id="outputListView" prefHeight="200.0" prefWidth="200.0"/>
                     </children>
                 </VBox>
+                <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                    <children>
+                        <Text boundsType="LOGICAL_VERTICAL_CENTER" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Proc Table" textAlignment="CENTER" textOrigin="CENTER"
+                              wrappingWidth="78.13665580749512" VBox.vgrow="ALWAYS"/>
+                        <TableView fx:id="procTableView">
+                            <columns>
+                                <TableColumn fx:id="procNameColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="-Infinity" prefWidth="113.60003507137299" text="Name"/>
+                                <TableColumn fx:id="procParametersColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="-Infinity" prefWidth="98.4000259399414" text="Params"/>
+                                <TableColumn fx:id="procBodyColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="-Infinity" prefWidth="98.4000259399414" text="Body"/>
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
 
 
             </children>

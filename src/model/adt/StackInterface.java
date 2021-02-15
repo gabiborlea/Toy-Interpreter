@@ -10,4 +10,6 @@ public interface StackInterface<TElement> {
     void clear();
     LinkedList<TElement> getContent();
     ArrayList<String> getElementsStrings();
+
+    TElement top();
 }

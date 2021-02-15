@@ -12,10 +12,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProgramState {
     StackInterface<StatementInterface> executionStack;
-    DictionaryInterface<String, ValueInterface> symbolTable;
+    StackInterface<DictionaryInterface<String, ValueInterface>> symbolTable;
     ListInterface<ValueInterface> output;
     DictionaryInterface<StringValue, BufferedReader> fileTable;
     HeapInterface<ValueInterface> memoryHeap;
+    ProcTableInterface procTable;
     private final int id;
 
     private static final AtomicInteger programStatesCount = new AtomicInteger(0);
@@ -25,17 +26,21 @@ public class ProgramState {
     }
 
     public ProgramState(StackInterface<StatementInterface> executionStack,
-                        DictionaryInterface<String, ValueInterface> symbolTable,
+                        StackInterface<DictionaryInterface<String, ValueInterface>> symbolTable,
                         ListInterface<ValueInterface> output,
                         DictionaryInterface<StringValue, BufferedReader> fileTable,
                         HeapInterface<ValueInterface> memoryHeap,
+                        ProcTableInterface procTable,
                         StatementInterface program) {
         id = getNewProgramId();
         this.executionStack = executionStack;
         this.symbolTable = symbolTable;
+        if(symbolTable.isEmpty())
+            symbolTable.push(new Dictionary<>());
         this.output = output;
         this.fileTable = fileTable;
         this.memoryHeap = memoryHeap;
+        this.procTable = procTable;
         executionStack.push(program);
     }
 
@@ -44,8 +49,10 @@ public class ProgramState {
     }
 
     public DictionaryInterface<String, ValueInterface> getSymbolTable() {
-        return symbolTable;
+        return symbolTable.top();
     }
+
+    public StackInterface<DictionaryInterface<String, ValueInterface>> getSymbolTableStack() {return symbolTable;}
 
     public ListInterface<ValueInterface> getOutput() {
         return output;
@@ -59,13 +66,15 @@ public class ProgramState {
         return memoryHeap;
     }
 
+    public ProcTableInterface getProcTable() { return procTable;}
+
     public int getId() { return id;}
 
     public void setExecutionStack(StackInterface<StatementInterface> executionStack) {
         this.executionStack = executionStack;
     }
 
-    public void setSymbolTable(DictionaryInterface<String, ValueInterface> symbolTable) {
+    public void setSymbolTable(StackInterface<DictionaryInterface<String, ValueInterface>> symbolTable) {
         this.symbolTable = symbolTable;
     }
 
@@ -94,11 +103,12 @@ public class ProgramState {
         StringBuilder output = new StringBuilder();
         StringBuilder fileTable = new StringBuilder();
         StringBuilder memoryHeap = new StringBuilder();
+        StringBuilder procTable = new StringBuilder();
 
         for (var element : this.executionStack.getElementsStrings())
             executionStack.append(element).append("\n");
 
-        for (var element : this.symbolTable.getElementsStrings())
+        for (var element : this.symbolTable.top().getElementsStrings())
             symbolTable.append(element.get(0)).append("-->").append(element.get(1)).append("\n");
 
         for (var element : this.output.getElementsStrings())
@@ -110,13 +120,17 @@ public class ProgramState {
         for (var element : this.memoryHeap.getElementsStrings())
             memoryHeap.append(element.get(0)).append("-->").append(element.get(1)).append("\n");
 
+        for (var element : this.procTable.getElementsStrings())
+            procTable.append(element.get(0)).append("-->").append(element.get(1)).append("\n");
+
 
         return  "ID: " + id + "\n" +
                 "Execution Stack:\n" + executionStack + "\n" +
                 "Symbol Table:\n" + symbolTable + "\n" +
                 "Output:\n" + output + "\n" +
                 "File Table:\n" + fileTable + "\n" +
-                "Memory Heap:\n" + memoryHeap + "--------------------------\n\n";
+                "Memory Heap:\n" + memoryHeap + "\n" +
+                "Proc Table:\n" + procTable + "\n" +"--------------------------\n\n";
     }
 
     @Override

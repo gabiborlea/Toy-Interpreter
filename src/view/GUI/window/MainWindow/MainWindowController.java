@@ -40,6 +40,16 @@ public class MainWindowController {
     private TableColumn<Pair<Integer, ValueInterface>, Integer> heapAddressColumn;
     @FXML
     private TableColumn<Pair<Integer, ValueInterface>, ValueInterface> heapValueColumn;
+
+    @FXML
+    private TableView<Object> procTableView;
+    @FXML
+    private TableColumn<Pair<String, Pair<java.util.List<String>, StatementInterface>>, String> procNameColumn;
+    @FXML
+    private TableColumn<Pair<String, Pair<java.util.List<String>, StatementInterface>>, java.util.List<String>> procParametersColumn;
+    @FXML
+    private TableColumn<Pair<String, Pair<java.util.List<String>, StatementInterface>>, StatementInterface> procBodyColumn;
+
     @FXML
     private ListView<StringValue> fileTableListView;
     @FXML
@@ -124,12 +134,35 @@ public class MainWindowController {
                 })));
     }
 
+    public void setProcTableView() {
+//        var procTable = FXCollections.observableArrayList(programState.getProcTable().getContent()
+//                .entrySet().stream()
+//        .map(entry -> new Pair<>(entry.getKey(), new Pair<>(entry.getValue().getKey(), entry.getValue().getValue())))
+//        .collect(Collector.of(FXCollections::observableArrayList, ObservableList::add, (elem1, elem2) -> {
+//            elem1.addAll(elem2);
+//            return elem1;}));
+//        this.procTableView.setItems(programState.getProcTable().getContent().entrySet().stream()
+//                .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
+//                .collect(Collector.of(FXCollections::observableArrayList, ObservableList::add, (elem1, elem2) -> {
+//                    elem1.addAll(elem2);
+//                    return elem1;
+//                })));
+
+        var procTable = FXCollections.observableArrayList();
+        for (var e: programState.getProcTable().getContent().entrySet())
+        {
+            procTable.add(new Pair<>(e.getKey(), e.getValue()));
+        }
+        this.procTableView.setItems(procTable);
+    }
+
     private void setProgramProperties(ProgramState programState) {
         setExecutionStackListView(programState);
         setOutputListView();
         setSymbolTableView(programState);
         setFileTableListView();
         setHeapTableView();
+        setProcTableView();
 
 
     }
@@ -140,7 +173,7 @@ public class MainWindowController {
     }
 
     public void initialize() {
-        programState = new ProgramState(new Stack<>(), new Dictionary<>(), new List<>(), new Dictionary<>(), new Heap<>(), selectProgram());
+        programState = new ProgramState(new Stack<>(), new Stack<>(), new List<>(), new Dictionary<>(), new Heap<>(), new ProcTable(), selectProgram());
         repository = new Repository(programState, "logs\\logGUI.txt");
         controller = new Controller(repository);
         setProgramStatesListView();
@@ -161,6 +194,10 @@ public class MainWindowController {
 
         this.heapAddressColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getKey()));
         this.heapValueColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getValue()));
+
+        this.procNameColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getKey()));
+        this.procParametersColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getValue().getKey()));
+        this.procBodyColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getValue().getValue()));
     }
 
     @FXML

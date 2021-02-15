@@ -45,6 +45,11 @@ public class Stack<TElement> implements StackInterface<TElement> {
     }
 
     @Override
+    public TElement top() {
+        return stack.getFirst();
+    }
+
+    @Override
     public String toString() {
         return stack.toString();
     }

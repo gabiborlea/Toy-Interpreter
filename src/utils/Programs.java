@@ -11,6 +11,7 @@ import model.value.IntValue;
 import model.value.StringValue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Programs {
@@ -232,6 +233,56 @@ public class Programs {
                         )
                 )
         );
-        return new ArrayList<>(List.of(ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8, ex9, ex10, ex11, ex12));
+
+        StatementInterface ex13 = new CompStatement(
+                new NewProcedureStatement("sum", Arrays.asList("a", "b"), new CompStatement(
+                        new VarDeclarationStatement("v", new IntType()),
+                        new CompStatement(
+                                new AssignStatement("v", new ArithExpression(1, new VarExpression("a"), new VarExpression("b"))),
+                                new PrintStatement(new VarExpression("v"))
+                                )
+                    )
+                ),
+                new CompStatement(
+                        new NewProcedureStatement("product", Arrays.asList("a", "b"), new CompStatement(
+                                new VarDeclarationStatement("v", new IntType()),
+                                new CompStatement(
+                                        new AssignStatement("v", new ArithExpression(3, new VarExpression("a"), new VarExpression("b"))),
+                                        new PrintStatement(new VarExpression("v"))
+                                )
+                        )
+                        ),
+                        new CompStatement(
+                                new VarDeclarationStatement("v", new IntType()),
+                                new CompStatement(
+                                        new VarDeclarationStatement("w", new IntType()),
+                                        new CompStatement(
+                                                new AssignStatement("v", new ValueExpression(new IntValue(2))),
+                                                new CompStatement(
+                                                        new AssignStatement("w", new ValueExpression(new IntValue(5))),
+                                                        new CompStatement(
+                                                                new CallProcedureStatement("sum", Arrays.asList(
+                                                                        new ArithExpression(3, new VarExpression("v"), new ValueExpression(new IntValue(10))), new VarExpression("w"))),
+                                                                new CompStatement(
+                                                                        new PrintStatement(new VarExpression("v")),
+                                                                        new CompStatement(
+                                                                                new ForkStatement(
+                                                                                       new CallProcedureStatement("product", Arrays.asList(new VarExpression("v"), new VarExpression("w")))
+                                                                                ),
+                                                                                new ForkStatement(
+                                                                                        new CallProcedureStatement("sum", Arrays.asList(new VarExpression("v"), new VarExpression("w")))
+                                                                                )
+                                                                        )
+                                                                )
+
+
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+        return new ArrayList<>(List.of(ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8, ex9, ex10, ex11, ex12, ex13));
     }
 }
