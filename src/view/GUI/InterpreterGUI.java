@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import view.GUI.window.MainWindow.MainWindowController;
 import view.GUI.window.SelectionWindow.SelectionWindowController;
 
+
 public class InterpreterGUI extends Application {
 
     @Override
