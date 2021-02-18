@@ -40,6 +40,14 @@ public class MainWindowController {
     private TableColumn<Pair<Integer, ValueInterface>, Integer> heapAddressColumn;
     @FXML
     private TableColumn<Pair<Integer, ValueInterface>, ValueInterface> heapValueColumn;
+
+    @FXML
+    private TableView<Pair<Integer, Integer>> latchTableView;
+    @FXML
+    private TableColumn<Pair<Integer, Integer>, Integer> latchAddressColumn;
+    @FXML
+    private TableColumn<Pair<Integer, Integer>, Integer> latchValueColumn;
+
     @FXML
     private ListView<StringValue> fileTableListView;
     @FXML
@@ -124,13 +132,22 @@ public class MainWindowController {
                 })));
     }
 
+    public void setLatchTableView() {
+        latchTableView.setItems(programState.getLatchTable().getContent().entrySet().stream()
+                .map(entry -> new Pair<>(entry.getKey(), entry.getValue()))
+                .collect(Collector.of(FXCollections::observableArrayList, ObservableList::add, (elem1, elem2) -> {
+                    elem1.addAll(elem2);
+                    return elem1;
+                })));
+    }
+
     private void setProgramProperties(ProgramState programState) {
         setExecutionStackListView(programState);
         setOutputListView();
         setSymbolTableView(programState);
         setFileTableListView();
         setHeapTableView();
-
+        setLatchTableView();
 
     }
     private void setProgramStatesListView() {
@@ -140,7 +157,7 @@ public class MainWindowController {
     }
 
     public void initialize() {
-        programState = new ProgramState(new Stack<>(), new Dictionary<>(), new List<>(), new Dictionary<>(), new Heap<>(), selectProgram());
+        programState = new ProgramState(new Stack<>(), new Dictionary<>(), new List<>(), new Dictionary<>(), new Heap<>(), new LatchTable(), selectProgram());
         repository = new Repository(programState, "logs\\logGUI.txt");
         controller = new Controller(repository);
         setProgramStatesListView();
@@ -161,6 +178,9 @@ public class MainWindowController {
 
         this.heapAddressColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getKey()));
         this.heapValueColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getValue()));
+
+        this.latchAddressColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getKey()));
+        this.latchValueColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getValue()));
     }
 
     @FXML

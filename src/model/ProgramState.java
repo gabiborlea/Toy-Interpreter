@@ -16,6 +16,7 @@ public class ProgramState {
     ListInterface<ValueInterface> output;
     DictionaryInterface<StringValue, BufferedReader> fileTable;
     HeapInterface<ValueInterface> memoryHeap;
+    LatchTableInterface latchTable;
     private final int id;
 
     private static final AtomicInteger programStatesCount = new AtomicInteger(0);
@@ -29,6 +30,7 @@ public class ProgramState {
                         ListInterface<ValueInterface> output,
                         DictionaryInterface<StringValue, BufferedReader> fileTable,
                         HeapInterface<ValueInterface> memoryHeap,
+                        LatchTableInterface latchTable,
                         StatementInterface program) {
         id = getNewProgramId();
         this.executionStack = executionStack;
@@ -36,6 +38,7 @@ public class ProgramState {
         this.output = output;
         this.fileTable = fileTable;
         this.memoryHeap = memoryHeap;
+        this.latchTable = latchTable;
         executionStack.push(program);
     }
 
@@ -58,6 +61,8 @@ public class ProgramState {
     public HeapInterface<ValueInterface> getMemoryHeap() {
         return memoryHeap;
     }
+
+    public LatchTableInterface getLatchTable() {return latchTable;}
 
     public int getId() { return id;}
 
@@ -116,7 +121,8 @@ public class ProgramState {
                 "Symbol Table:\n" + symbolTable + "\n" +
                 "Output:\n" + output + "\n" +
                 "File Table:\n" + fileTable + "\n" +
-                "Memory Heap:\n" + memoryHeap + "--------------------------\n\n";
+                "Memory Heap:\n" + memoryHeap +
+                "Latch Table:\n" + latchTable + "--------------------------\n\n";
     }
 
     @Override

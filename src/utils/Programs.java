@@ -232,6 +232,77 @@ public class Programs {
                         )
                 )
         );
-        return new ArrayList<>(List.of(ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8, ex9, ex10, ex11, ex12));
+
+        StatementInterface ex13 = new CompStatement(
+                new VarDeclarationStatement("v1", new ReferenceType(new IntType())),
+                new CompStatement(
+                        new VarDeclarationStatement("v2", new ReferenceType(new IntType())),
+                        new CompStatement(
+                                new VarDeclarationStatement("v3", new ReferenceType(new IntType())),
+                                new CompStatement(
+                                        new HeapAllocationStatement("v1", new ValueExpression(new IntValue(2))),
+                                        new CompStatement(
+                                                new HeapAllocationStatement("v2", new ValueExpression(new IntValue(3))),
+                                                new CompStatement(
+                                                        new HeapAllocationStatement("v3", new ValueExpression(new IntValue(4))),
+                                                        new CompStatement(
+                                                                new NewLatchStatement("cnt", new ReadHeapExpression(new VarExpression("v2"))),
+                                                                new CompStatement(
+                                                                        new ForkStatement(
+                                                                                new CompStatement(
+                                                                                        new WriteHeapStatement("v1", new ArithExpression(3, new ReadHeapExpression(new VarExpression("v1")), new ValueExpression(new IntValue(10)))),
+                                                                                        new CompStatement(
+                                                                                                new PrintStatement(new ReadHeapExpression(new VarExpression("v1"))),
+                                                                                                new CompStatement(
+                                                                                                        new CountDownStatement("cnt"),
+                                                                                                        new ForkStatement(
+                                                                                                                new CompStatement(
+                                                                                                                        new WriteHeapStatement("v2", new ArithExpression(3, new ReadHeapExpression(new VarExpression("v2")), new ValueExpression(new IntValue(10)))),
+                                                                                                                        new CompStatement(
+                                                                                                                                new PrintStatement(new ReadHeapExpression(new VarExpression("v2"))),
+                                                                                                                                new CompStatement(
+                                                                                                                                        new CountDownStatement("cnt"),
+                                                                                                                                        new ForkStatement(
+                                                                                                                                                new CompStatement(
+                                                                                                                                                        new WriteHeapStatement("v3", new ArithExpression(3, new ReadHeapExpression(new VarExpression("v3")), new ValueExpression(new IntValue(10)))),
+                                                                                                                                                        new CompStatement(
+                                                                                                                                                                new PrintStatement(new ReadHeapExpression(new VarExpression("v3"))),
+
+                                                                                                                                                                new CountDownStatement("cnt")
+                                                                                                                                                        )
+
+                                                                                                                                                )
+                                                                                                                                        )
+
+                                                                                                                                )
+
+                                                                                                                        )
+                                                                                                                )
+
+                                                                                                        )
+                                                                                                )
+                                                                                        )
+                                                                                )
+                                                                        ),
+                                                                        new CompStatement(
+                                                                                new AwaitStatement("cnt"),
+                                                                                new CompStatement(
+                                                                                        new PrintStatement(new ValueExpression(new IntValue(100))),
+                                                                                        new CompStatement(
+                                                                                                new CountDownStatement("cnt"),
+                                                                                                new PrintStatement(new ValueExpression(new IntValue(100)))
+                                                                                        )
+                                                                                )
+                                                                        )
+                                                                )
+
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+        return new ArrayList<>(List.of(ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8, ex9, ex10, ex11, ex12, ex13));
     }
 }
