@@ -50,6 +50,10 @@ public class RelationalExpression implements ExpressionInterface {
                     case "<": {
                         return new BoolValue(number1 < number2);
                     }
+
+                    case "==": {
+                        return new BoolValue(number1 == number2);
+                    }
                     default:
                         throw new OperatorException("Wrong operator");
 
@@ -83,6 +87,7 @@ public class RelationalExpression implements ExpressionInterface {
             case ">=" -> expression2 + ">=" + expression2;
             case "<=" -> expression1 + "<=" + expression2;
             case "<" -> expression1 + "<" + expression2;
+            case "==" -> expression1 + "==" + expression2;
             default -> expression1 + "wrong operator" + expression2;
         };
     }

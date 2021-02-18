@@ -13,10 +13,18 @@ import model.value.ValueInterface;
 public class WhileStatement implements StatementInterface{
     private final ExpressionInterface conditionExpression;
     private final StatementInterface blockStatement;
+    private final boolean logicalOperator;
 
     public WhileStatement(ExpressionInterface expression, StatementInterface blockStatement) {
         this.conditionExpression = expression;
         this.blockStatement = blockStatement;
+        this.logicalOperator = true;
+    }
+
+    public WhileStatement(ExpressionInterface expression, StatementInterface blockStatement, boolean logicalOperator) {
+        this.conditionExpression = expression;
+        this.blockStatement = blockStatement;
+        this.logicalOperator = logicalOperator;
     }
 
     @Override
@@ -26,7 +34,7 @@ public class WhileStatement implements StatementInterface{
         if (!(conditionValue.getType() instanceof BoolType))
             throw new TypeException(conditionExpression + "is not of BoolType");
 
-        if (((BoolValue) conditionValue).getValue()) {
+        if (((BoolValue) conditionValue).getValue() == logicalOperator) {
             state.getExecutionStack().push(this);
             state.getExecutionStack().push(blockStatement);
         }

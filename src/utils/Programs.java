@@ -303,6 +303,52 @@ public class Programs {
                         )
                 )
         );
-        return new ArrayList<>(List.of(ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8, ex9, ex10, ex11, ex12, ex13));
+
+        StatementInterface ex14 = new CompStatement(
+                new VarDeclarationStatement("v", new IntType()),
+                new CompStatement(
+                        new AssignStatement("v", new ValueExpression(new IntValue(0))),
+                        new CompStatement(
+                                new RepeatUntilStatement(
+                                        new CompStatement(
+                                                new ForkStatement(
+                                                        new CompStatement(
+                                                                new PrintStatement(new VarExpression("v")),
+                                                                new AssignStatement("v", new ArithExpression(2, new VarExpression("v"), new ValueExpression(new IntValue(1))))
+                                                        )
+                                                ),
+                                                new AssignStatement("v", new ArithExpression(1, new VarExpression("v"), new ValueExpression(new IntValue(1))))
+                                        ),
+                                        new RelationalExpression("==", new VarExpression("v"), new ValueExpression(new IntValue(3)))
+                                ),
+                                new CompStatement(
+                                        new VarDeclarationStatement("x", new IntType()),
+                                        new CompStatement(
+                                                new VarDeclarationStatement("y", new IntType()),
+                                                new CompStatement(
+                                                        new VarDeclarationStatement("z", new IntType()),
+                                                        new CompStatement(
+                                                                new VarDeclarationStatement("w", new IntType()),
+                                                                new CompStatement(
+                                                                        new AssignStatement("x", new ValueExpression(new IntValue(1))),
+                                                                        new CompStatement(
+                                                                                new AssignStatement("y", new ValueExpression(new IntValue(2))),
+                                                                                new CompStatement(
+                                                                                        new AssignStatement("z", new ValueExpression(new IntValue(3))),
+                                                                                        new CompStatement(
+                                                                                                new AssignStatement("w", new ValueExpression(new IntValue(4))),
+                                                                                                new PrintStatement(new ArithExpression(3, new VarExpression("v"), new ValueExpression(new IntValue(10))))
+                                                                                        )
+                                                                                )
+                                                                        )
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+        return new ArrayList<>(List.of(ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8, ex9, ex10, ex11, ex12, ex13, ex14));
     }
 }
